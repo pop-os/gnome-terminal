@@ -38,7 +38,7 @@ Vcs-Browser: https://salsa.debian.org/gnome-team/gnome-terminal/tree/ubuntu/mast
 Homepage: https://wiki.gnome.org/Apps/Terminal
 
 Package: gnome-terminal
-Architecture: any
+Architecture: linux-any
 Multi-Arch: foreign
 Depends: default-dbus-session-bus | dbus-session-bus,
          gnome-terminal-data (<< ${gnome:NextVersion}),
@@ -78,7 +78,7 @@ Description: Data files for the GNOME terminal emulator
  gnome-terminal, the GNOME terminal emulator application.
 
 Package: nautilus-extension-gnome-terminal
-Architecture: any
+Architecture: linux-any
 Depends: gnome-terminal (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
