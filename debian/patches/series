@@ -7,3 +7,6 @@ Provide-fallback-for-reading-current-directory-if-OS.patch
 60_add_lp_handler.patch
 scrollbar-background-theming.patch
 screen-Use-clean-env-when-creating-new-tab.patch
+
+# Pop!_OS patches
+pop-shell.patch

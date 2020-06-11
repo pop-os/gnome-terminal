@@ -1,0 +1,14 @@
+Index: gnome-terminal/src/terminal-window.cc
+===================================================================
+--- gnome-terminal.orig/src/terminal-window.cc
++++ gnome-terminal/src/terminal-window.cc
+@@ -2692,6 +2692,9 @@ terminal_window_update_size (TerminalWin
+       return;
+     }
+ 
++  // Never resize on Pop
++  return;
++
+   /* be sure our geometry is up-to-date */
+   terminal_window_update_geometry (window);
+ 
