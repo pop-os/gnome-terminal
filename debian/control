@@ -37,7 +37,7 @@ Vcs-Browser: https://salsa.debian.org/gnome-team/gnome-terminal/tree/ubuntu/mast
 Homepage: https://wiki.gnome.org/Apps/Terminal
 
 Package: gnome-terminal
-Architecture: any
+Architecture: amd64
 Multi-Arch: foreign
 Depends: ${shlibs:Depends},
          ${misc:Depends},
@@ -77,7 +77,7 @@ Description: Data files for the GNOME terminal emulator
  gnome-terminal, the GNOME terminal emulator application.
 
 Package: nautilus-extension-gnome-terminal
-Architecture: any
+Architecture: amd64
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          gnome-terminal (= ${binary:Version})
