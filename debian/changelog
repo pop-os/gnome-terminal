@@ -1,3 +1,9 @@
+gnome-terminal (3.36.2-1ubuntu1~20.04pop0) focal; urgency=medium
+
+  * pop-shell.patch: Do not resize terminal to character width
+
+ -- Jeremy Soller <jeremy@system76.com>  Tue, 14 Jul 2020 20:18:04 -0600
+
 gnome-terminal (3.36.2-1ubuntu1~20.04) focal; urgency=medium
 
   * No-change backport from groovy to focal. (LP: #1883015)
