@@ -1,162 +1,408 @@
-commit 3be01f5fa7991bcd28a1a9d4b4390de3d4c16cb8
+commit 40d226a2d58b5bd2ef38ce9871c7b27fcd4a0928
 Author: Christian Persch <chpe@src.gnome.org>
-Date:   Thu Feb 4 18:48:15 2021 +0100
+Date:   Wed Jun 30 18:00:45 2021 +0200
 
-    app: Limit the number of clipboard targets to a sensible number
+    settings: Fix crash when loading the reference schema source fails
     
-    (cherry picked from commit 4085fd5b87ebdc8fac4ebfa2ca926e47bf3f48ad)
+    https://retrace.fedoraproject.org/faf/reports/190312/
+    (cherry picked from commit 48936582ddce1d1f23c0c42565887f63cd589187)
 
- src/terminal-app.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ src/terminal-util.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-commit 340e57ce13ad742d185815dd889e304915d76cee
-Author: Kjartan Maraas <kmaraas@gnome.org>
-Date:   Mon Jan 25 14:50:19 2021 +0000
+commit 0192ff6b993556121f99fc28b5e8109f8defc89d
+Author: Quentin PAGÈS <pages_quentin@hotmail.com>
+Date:   Sat Jun 12 20:45:38 2021 +0000
 
-    Update Norwegian Bokmål translation
+    Update Occitan translation
 
- po/nb.po | 28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
+ po/oc.po | 29 ++++++++++++++++-------------
+ 1 file changed, 16 insertions(+), 13 deletions(-)
 
-commit 5179a3306fc62d3cce837cacf4b53a006cadeacb
+commit a647d65c7199a0750f3419a60b9f68c9ad748113
+Author: Dušan Kazik <prescott66@gmail.com>
+Date:   Fri Jun 11 13:54:06 2021 +0000
+
+    Update Slovak translation
+
+ po/sk.po | 128 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 69 insertions(+), 59 deletions(-)
+
+commit 02a6d9e4d0c0f071f289d07fa70c75ca2fc80a8f
 Author: Christian Persch <chpe@src.gnome.org>
-Date:   Sat Jan 9 20:10:39 2021 +0100
-
-    Post release version bump
-
- configure.ac | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-commit 8682ee73244a9ad92d19cd3b52cb04a0155d4282
-Author: Akarshan Biswas <akarshan.biswas@hotmail.com>
-Date:   Mon Jan 4 08:27:36 2021 +0000
-
-    Update Bengali (India) translation
-
- po/bn_IN.po | 3384 ++++++++++++++++++++++++++++++++++-------------------------
- 1 file changed, 1982 insertions(+), 1402 deletions(-)
-
-commit 4db453ec9db9e28654887f161a4b9ca9f1aab4ef
-Author: Christian Persch <chpe@src.gnome.org>
-Date:   Thu Dec 31 20:53:56 2020 +0100
-
-    search: Use timestamp when presenting the search dialogue
-    
-    https://gitlab.gnome.org/GNOME/gnome-terminal/-/issues/294
-    (cherry picked from commit adeb0a07760b48d63dc186cd2efd07b6a775901a)
-
- src/terminal-window.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-commit 5f1125c54c3c6030ac285e5c147c8f9f6cd2e9f6
-Author: Christian Persch <chpe@src.gnome.org>
-Date:   Sat Dec 26 14:59:49 2020 +0100
-
-    desktop: Set StartupWMClass
-    
-    This isn't necessary for gnome-shell, but some other DEs need this to
-    match gnome-terminal-server to the correct name.
-    
-    Fixes: https://gitlab.gnome.org/GNOME/gnome-terminal/-/issues/314
-    (cherry picked from commit f806a81dc955ae5fcab7f651dcf58bec02a70a82)
-
- org.gnome.Terminal.desktop.in.in | 1 +
- 1 file changed, 1 insertion(+)
-
-commit 569ca367130801511fba379d89bf0cbf9591b069
-Author: Christian Persch <chpe@src.gnome.org>
-Date:   Sat Dec 26 13:42:56 2020 +0100
-
-    search: Make sure to focus the search dialogue
-    
-    ... when it already exists; and move focus to the search entry.
-    
-    Fixes: https://gitlab.gnome.org/GNOME/gnome-terminal/-/issues/294
-    (cherry picked from commit 8d2ea58d6049aba02448b622b6ad2b97919ad9f8)
-
- src/terminal-search-popover.c | 11 +++++++++++
- src/terminal-window.c         |  6 ++++--
- 2 files changed, 15 insertions(+), 2 deletions(-)
-
-commit 4b6051dacee101f323669ecf1ec65d87122b208c
-Author: Christian Persch <chpe@src.gnome.org>
-Date:   Fri Dec 25 18:01:12 2020 +0100
-
-    nautilus: Pass environment when creating a terminal in the current directory
-    
-    Fixes: https://gitlab.gnome.org/GNOME/gnome-terminal/-/issues/303
-    (cherry picked from commit c42d9ccf31923f2b1e2eb59c40b48bf196846c7a)
-
- src/terminal-client-utils.c | 3 +++
- src/terminal-nautilus.c     | 2 +-
- 2 files changed, 4 insertions(+), 1 deletion(-)
-
-commit fcc742cc49b7e9c6a97802acd2dcdd58a9b3bf33
-Author: Kjartan Maraas <kmaraas@gnome.org>
-Date:   Fri Dec 4 13:54:45 2020 +0000
-
-    Update Norwegian Bokmål translation
-
- po/nb.po | 1547 ++++++++++++++++++++++++++++++++++----------------------------
- 1 file changed, 846 insertions(+), 701 deletions(-)
-
-commit 25fa764fef8219a4aaa9c51814be31f37ad1d6ff
-Author: Cheng-Chia Tseng <pswo10680@gmail.com>
-Date:   Mon Oct 12 14:16:30 2020 +0000
-
-    Update Chinese (Taiwan) translation
-
- po/zh_TW.po | 376 +++++++++++++++++++++++++++++++-----------------------------
- 1 file changed, 194 insertions(+), 182 deletions(-)
-
-commit f564feda552b3318f4bb349b7ffb642f10f80d65
-Author: Andika Triwidada <atriwidada@gnome.org>
-Date:   Wed Oct 7 09:07:03 2020 +0200
-
-    Add Indonesian help translation
-
- help/id/id.po | 3681 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 3681 insertions(+)
-
-commit 00ae3bd7113ee476dcb39b93a2ccddc0d968af7e
-Author: Daniel Mustieles <daniel.mustieles@gmail.com>
-Date:   Mon Oct 5 09:13:04 2020 +0200
-
-    Added id language to help
-
- help/Makefile.am | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-commit 92efd6f9ea80a09e72a24b270d17fe1c1fc87ba5
-Author: Christian Persch <chpe@src.gnome.org>
-Date:   Sat Oct 3 19:21:03 2020 +0200
+Date:   Sat Jun 5 18:46:31 2021 +0200
 
     build: Post release version bump
 
  configure.ac | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-commit 71b414832b1bf02f748048c59c31de7761181d44
+commit 417a3ada79e042a119a4c9c99adc866de127bfd5
 Author: Christian Persch <chpe@src.gnome.org>
-Date:   Sat Oct 3 19:16:30 2020 +0200
+Date:   Fri Jun 4 20:14:42 2021 +0200
 
-    build: Version 3.38.1
+    all: Add settings schema verifier
+    
+    Add external schemas, and build a reference gschema.compiled. At
+    startup, verify that the installed compiled schemas conform to that
+    reference schema; if not, use the reference schema as schema source
+    instead.
+    
+    This fixes the problem where, on upgrade, or through an otherwise failed
+    recompile of the gschemas.compiled cache, where the upgrade to
+    gnome-terminal added ettings keys, the server will abort when trying to get
+    that new key.
+    
+    E.g. https://bugzilla.redhat.com/show_bug.cgi?id=1961775 which is just
+    the latest instance of this problem occurring.
+
+ src/Makefile.am             |  16 ++
+ src/external.gschema.xml    | 143 +++++++++++++++
+ src/terminal-app.c          |  11 +-
+ src/terminal-client-utils.c |   1 +
+ src/terminal-util.c         | 421 +++++++++++++++++++++++++++++++++++++++-----
+ src/terminal-util.h         |   5 +-
+ 6 files changed, 544 insertions(+), 53 deletions(-)
+
+commit b2e78f5585e2b7aa8eadbba6991de94d8a6bdf0f
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Fri Jun 4 20:14:42 2021 +0200
+
+    all: Specify the schema source when constructing any GSettings
+    
+    Specify the GSettingsSchemaSource to use when constructing a GSettings
+    object. Due to https://gitlab.gnome.org/GNOME/glib/-/issues/1884 this
+    neccessitates not using g_settings_get_child() to construct a child
+    setting, but instead to construct the child GSettings directly.
+    
+    In preparation for the next commit.
+
+ src/terminal-app.c           | 81 +++++++++++++++++++++++++++++++++++++++-----
+ src/terminal-app.h           | 12 +++++++
+ src/terminal-client-utils.c  | 22 ++++++++++++
+ src/terminal-client-utils.h  |  7 ++++
+ src/terminal-options.c       |  2 +-
+ src/terminal-profiles-list.c |  6 ++--
+ src/terminal-profiles-list.h |  2 +-
+ src/terminal-schemas.h       |  2 ++
+ src/terminal-settings-list.c | 36 +++++++++++++++++---
+ src/terminal-settings-list.h |  3 +-
+ src/terminal-util.c          | 57 +++++++++++--------------------
+ src/terminal-util.h          |  7 ++--
+ 12 files changed, 180 insertions(+), 57 deletions(-)
+
+commit 7b49a730b110f76273d3b14d08b4110c8f7665f9
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Fri Jun 4 20:14:42 2021 +0200
+
+    app: Make owner-change check only on X11
+
+ src/terminal-app.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+commit c0e61229a1d3b03915c25df384dcf093dc462a64
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Fri Jun 4 20:14:42 2021 +0200
+
+    util: Fix deprecation warning
+
+ src/terminal-util.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit cbeba1976d23b7f13a7a8e81f5fc44ba5d07c920
+Author: Selyan Slimane AMIRI <selyan.kab@protonmail.com>
+Date:   Sat May 29 19:54:24 2021 +0000
+
+    Add Kabyle translation
+
+ po/LINGUAS |    1 +
+ po/kab.po  | 2305 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 2306 insertions(+)
+
+commit 67a00883a7d601ec111cfebaf5fc83b84ca35ac1
+Author: Quentin PAGÈS <pages_quentin@hotmail.com>
+Date:   Thu May 13 15:19:45 2021 +0000
+
+    Update Occitan translation
+
+ po/oc.po | 1841 ++++++++++++++++++++++++++++++++------------------------------
+ 1 file changed, 952 insertions(+), 889 deletions(-)
+
+commit c99ffc30070cb2200eb6d40f65fea1e8cda21a26
+Author: Pawan Chitrakar <chautari@gmail.com>
+Date:   Sat May 1 02:43:12 2021 +0000
+
+    Update Nepali translation
+
+ po/ne.po | 868 +++++++++++++++++++++++++++------------------------------------
+ 1 file changed, 365 insertions(+), 503 deletions(-)
+
+commit cdae6cc19610c8c2bb877455866828b5b7d60da9
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Fri Apr 30 18:47:06 2021 +0200
+
+    build: Post release version bump
 
  configure.ac | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-commit a2354de2544f5fa28c1f7599da95bbc67a37b99c
+commit 749a447489c609d4cb6dd429c73da68f768c1071
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Fri Apr 30 18:43:49 2021 +0200
+
+    build: Version 3.40.1
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit da268112b260d494e999b172088ded78dc95b1de
+Author: Pawan Chitrakar <chautari@gmail.com>
+Date:   Wed Apr 21 15:33:25 2021 +0000
+
+    Update Nepali translation
+
+ po/ne.po | 1151 ++++++++++++++++++++++++++------------------------------------
+ 1 file changed, 484 insertions(+), 667 deletions(-)
+
+commit ae58daaeedee7eca880cd33c5f0cd189be69c5f5
+Author: Pawan Chitrakar <chautari@gmail.com>
+Date:   Mon Apr 19 15:08:16 2021 +0000
+
+    Update Nepali translation
+
+ po/ne.po | 4433 ++++++++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 2416 insertions(+), 2017 deletions(-)
+
+commit 00d63fde26ee2c83c113939d3e0e71f4132e2065
+Author: Hugo Carvalho <hugokarvalho@hotmail.com>
+Date:   Wed Apr 14 10:33:15 2021 +0000
+
+    Update Portuguese translation
+
+ po/pt.po | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+commit 3b24c55f9ea36b4c56a775d226ce0f09e3ab56a3
+Author: Nathan Follens <nfollens@gnome.org>
+Date:   Thu Apr 1 21:04:02 2021 +0000
+
+    Update Dutch translation
+
+ po/nl.po | 128 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 69 insertions(+), 59 deletions(-)
+
+commit 22a403097260dc19424050690e900a8c9fe7e0dc
+Author: Zander Brown <zbrown@gnome.org>
+Date:   Tue Mar 30 18:53:19 2021 +0000
+
+    Update British English translation
+
+ po/en_GB.po | 131 ++++++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 70 insertions(+), 61 deletions(-)
+
+commit 33557f109ea11e1f5a36490a0116aed2683c6a25
 Author: Yosef Or Boczko <yoseforb@gnome.org>
-Date:   Mon Sep 28 22:13:19 2020 +0000
+Date:   Sun Mar 28 23:07:45 2021 +0000
 
     Update Hebrew translation
 
- po/he.po | 931 ++++++++++++++++++++++++++++-----------------------------------
- 1 file changed, 409 insertions(+), 522 deletions(-)
+ po/he.po | 133 +++++++++++++++++++++++++++++++++------------------------------
+ 1 file changed, 70 insertions(+), 63 deletions(-)
 
-commit 16bd9f6a4181d37af2769e7ca5a1f9a1211cfaac
+commit 4ba9c9ac81a9265ed432a1fd8c4385af81723810
+Author: Hugo Carvalho <hugokarvalho@hotmail.com>
+Date:   Sat Mar 27 23:16:44 2021 +0000
+
+    Update Portuguese translation
+
+ po/pt.po | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
+
+commit ed959c90acb6442de69ebaa70da043d623f4d210
+Author: Efstathios Iosifidis <eiosifidis@gnome.org>
+Date:   Fri Mar 26 07:33:42 2021 +0000
+
+    Update Greek translation
+
+ po/el.po | 125 +++++++++++++++++++++++++++++++++------------------------------
+ 1 file changed, 66 insertions(+), 59 deletions(-)
+
+commit 6c30c9d95906b97bcec2f6e33547749d8ace5e37
+Author: Hugo Carvalho <hugokarvalho@hotmail.com>
+Date:   Thu Mar 25 11:22:33 2021 +0000
+
+    Update Portuguese translation
+
+ po/pt.po | 42 ++++++++++++++++++++----------------------
+ 1 file changed, 20 insertions(+), 22 deletions(-)
+
+commit c0353e8f5cb027f8e1a20f4de0ddc69bb4e079bd
+Author: Ngọc Quân Trần <vnwildman@gmail.com>
+Date:   Wed Mar 24 07:05:37 2021 +0000
+
+    Update Vietnamese translation
+
+ po/vi.po | 1465 ++++++++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 807 insertions(+), 658 deletions(-)
+
+commit 472e2a831b36ebdbaca6c31549321fc2a06ad540
 Author: Christian Persch <chpe@src.gnome.org>
-Date:   Thu Sep 17 17:10:47 2020 +0200
+Date:   Fri Mar 19 22:48:51 2021 +0100
+
+    build: Post release version bump
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 43a88b38000e8bae189cfe039702bf2b23a7f299
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Fri Mar 19 22:44:45 2021 +0100
+
+    Version 3.40.0
+    
+    ... for gnome 40.0.
+
+ configure.ac | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 3128c6810f71eac864229a689eb66cfc519567e4
+Author: Gianvito Cavasoli <gianvito@gmx.it>
+Date:   Tue Mar 16 17:12:05 2021 +0000
+
+    Update Italian translation
+
+ po/it.po | 131 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 70 insertions(+), 61 deletions(-)
+
+commit cb0f3e2e3cea2bcd580c069be550838783a31385
+Author: Ask Hjorth Larsen <asklarsen@gmail.com>
+Date:   Sat Mar 13 14:29:51 2021 +0100
+
+    Updated Danish translation
+
+ help/da/da.po | 3670 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 3670 insertions(+)
+
+commit fc8d63f5190848d3f744fe38c7fb38a8382d841c
+Author: Ask Hjorth Larsen <asklarsen@gmail.com>
+Date:   Sat Mar 13 14:29:51 2021 +0100
+
+    add da to LINGUAS
+
+ help/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit aac78a710919b084a8754e4e496bc549745b2b7f
+Author: Seong-ho Cho <shcho@gnome.org>
+Date:   Sat Mar 13 05:48:41 2021 +0000
+
+    Update Korean translation
+
+ help/ko/ko.po | 1668 ++++++++++++++++++++++++++++++---------------------------
+ 1 file changed, 874 insertions(+), 794 deletions(-)
+
+commit c353f952f9da8deaa424ea0c809a1640dcffe405
+Author: Changwoo Ryu <cwryu@debian.org>
+Date:   Fri Mar 12 09:33:14 2021 +0000
+
+    Update Korean translation
+
+ po/ko.po | 133 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 72 insertions(+), 61 deletions(-)
+
+commit c430bbe2b0a6f7aab97763469c5bd788f39b48c7
+Author: Danial Behzadi <dani.behzi@ubuntu.com>
+Date:   Wed Mar 10 15:20:14 2021 +0000
+
+    Update Persian translation
+
+ po/fa.po | 125 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 67 insertions(+), 58 deletions(-)
+
+commit f84e0f1353ad1e3afe3d851e1a79f34c07f4d6ad
+Author: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>
+Date:   Sun Mar 7 14:45:33 2021 +0000
+
+    Update Latvian translation
+
+ po/lv.po | 141 ++++++++++++++++++++++++++++++++-------------------------------
+ 1 file changed, 72 insertions(+), 69 deletions(-)
+
+commit 31b996d16ef5472c6c79bc85184cca4dd331d094
+Author: Balázs Úr <balazs@urbalazs.hu>
+Date:   Wed Mar 3 07:03:52 2021 +0000
+
+    Update Hungarian translation
+
+ help/hu/hu.po | 1531 ++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 763 insertions(+), 768 deletions(-)
+
+commit 9b2ff07f88bdab175c76ad6e110581b7f9da280f
+Author: Jiri Grönroos <jiri.gronroos@iki.fi>
+Date:   Tue Mar 2 13:58:54 2021 +0000
+
+    Update Finnish translation
+
+ po/fi.po | 129 +++++++++++++++++++++++++++++++++------------------------------
+ 1 file changed, 68 insertions(+), 61 deletions(-)
+
+commit 3ce36fb5ebb250c3f2e7f4b5f268051526c224d2
+Author: Charles Monzat <charles.monzat@free.fr>
+Date:   Tue Mar 2 07:48:54 2021 +0000
+
+    Update French translation
+
+ po/fr.po | 132 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 72 insertions(+), 60 deletions(-)
+
+commit 29310eadb7e71be1254a40ae83bd5fb44e0e2a59
+Author: Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+Date:   Tue Mar 2 04:05:37 2021 +0000
+
+    Update Kazakh translation
+
+ po/kk.po | 125 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 67 insertions(+), 58 deletions(-)
+
+commit f856ea35db0dc9db33a39c04196c4fcd575457f3
+Author: Piotr Drąg <piotrdrag@gmail.com>
+Date:   Sun Feb 28 14:45:43 2021 +0100
+
+    Update Polish translation
+
+ po/pl.po | 133 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 71 insertions(+), 62 deletions(-)
+
+commit b1ea25895cc07d2241c53d5c370ca77d8cfc8b01
+Author: Aurimas Černius <aurisc4@gmail.com>
+Date:   Sat Feb 27 14:24:54 2021 +0200
+
+    Updated Lithuanian translation
+
+ po/lt.po | 127 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 68 insertions(+), 59 deletions(-)
+
+commit 9c2e390f1ba269fc1af3c101d340d00d5cd28d99
+Author: Emin Tufan Çetin <etcetin@gmail.com>
+Date:   Thu Feb 25 13:45:00 2021 +0000
+
+    Update Turkish translation
+
+ po/tr.po | 184 +++++++++++++++++++++++++++++++++------------------------------
+ 1 file changed, 96 insertions(+), 88 deletions(-)
+
+commit d09b441da92f3b891d72250a0a10e9ed1cc2846c
+Author: Fran Dieguez <frandieguez@gnome.org>
+Date:   Wed Feb 24 19:11:52 2021 +0000
+
+    Update Galician translation
+
+ po/gl.po | 112 +++++++++++++++++++++++++++++++--------------------------------
+ 1 file changed, 56 insertions(+), 56 deletions(-)
+
+commit ff0ca88c1ccef6e0eaeaa642951937d4410e228b
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Mon Feb 22 17:08:09 2021 +0100
 
     Revert "screen: Use clean env when creating new tab"
     
@@ -174,11 +420,503 @@ Date:   Thu Sep 17 17:10:47 2020 +0200
     
     https://gitlab.gnome.org/GNOME/gnome-terminal/-/issues/253
     (cherry picked from commit 57ea15c4bdf15247f1d403aa24fb18efe23cd8a7)
+    (cherry picked from commit 16bd9f6a4181d37af2769e7ca5a1f9a1211cfaac)
 
  src/terminal-screen.c | 11 +++++++----
  1 file changed, 7 insertions(+), 4 deletions(-)
 
-commit e7bfd76868d4be69921300e06cebf63426d901f3
+commit 87cf8d7be116e2e35f089822068ceace2d268922
+Author: Asier Sarasua Garmendia <asiersarasua@ni.eus>
+Date:   Sat Feb 20 12:06:01 2021 +0000
+
+    Update Basque translation
+
+ po/eu.po | 123 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 66 insertions(+), 57 deletions(-)
+
+commit ba3f8e83ecbeb0b415195521e6d2e64048d8932e
+Author: Rafael Fontenelle <rafaelff@gnome.org>
+Date:   Thu Feb 18 02:00:16 2021 +0000
+
+    Update Brazilian Portuguese translation
+
+ po/pt_BR.po | 130 ++++++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 69 insertions(+), 61 deletions(-)
+
+commit 3c6ce90d15fbd7a7819ee1defb689888150b92c0
+Author: Марко Костић <marko.m.kostic@gmail.com>
+Date:   Mon Feb 15 16:10:10 2021 +0000
+
+    Update Serbian translation
+
+ po/sr.po | 124 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 67 insertions(+), 57 deletions(-)
+
+commit 01445c205d69128231de848db0af131b5a084aca
+Author: Balázs Úr <balazs@urbalazs.hu>
+Date:   Sun Feb 14 12:33:44 2021 +0000
+
+    Update Hungarian translation
+
+ po/hu.po | 129 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 69 insertions(+), 60 deletions(-)
+
+commit fc59104185aa849c82f1b0512e4367e54bfe1cec
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Sat Feb 13 21:39:21 2021 +0100
+
+    build: Post release version bump
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit c9fb3afca692162f4a63d877dec9061b8b6e25f3
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Sat Feb 13 21:35:49 2021 +0100
+
+    Version 3.39.90
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit fe37b6ca496fab5e78f0d0478e7be3f49b36480c
+Author: Luna Jernberg <droidbittin@gmail.com>
+Date:   Wed Feb 10 01:32:53 2021 +0000
+
+    Update Swedish translation
+
+ po/sv.po | 127 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 69 insertions(+), 58 deletions(-)
+
+commit 6405c8b3a714eb9fded4edee9c9f6305ebd8c5cb
+Author: Marek Černocký <marek@manet.cz>
+Date:   Sun Feb 7 19:58:58 2021 +0100
+
+    Updated Czech translation
+
+ po/cs.po | 102 +++++++++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 56 insertions(+), 46 deletions(-)
+
+commit 4085fd5b87ebdc8fac4ebfa2ca926e47bf3f48ad
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Thu Feb 4 18:48:15 2021 +0100
+
+    app: Limit the number of clipboard targets to a sensible number
+
+ src/terminal-app.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 1c4097a4facde7947725bfca724f6515f39d8b39
+Author: Bruno Lopes da Silva <brunolopesdsilv@gmail.com>
+Date:   Mon Feb 1 18:57:39 2021 +0000
+
+    Update Brazilian Portuguese translation
+
+ help/pt_BR/pt_BR.po | 1574 +++++++++++++++++++++++++++------------------------
+ 1 file changed, 844 insertions(+), 730 deletions(-)
+
+commit 638bbe42b5657424f1fb123dd13a01dea7a1d3fd
+Author: Fran Dieguez <frandieguez@gnome.org>
+Date:   Mon Jan 25 17:20:46 2021 +0000
+
+    Update Galician translation
+
+ po/gl.po | 111 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 60 insertions(+), 51 deletions(-)
+
+commit f523550df1755163d648d3a0f4f2dfc58af55ef2
+Author: Kjartan Maraas <kmaraas@gnome.org>
+Date:   Mon Jan 25 14:50:19 2021 +0000
+
+    Update Norwegian Bokmål translation
+    
+    (cherry picked from commit 340e57ce13ad742d185815dd889e304915d76cee)
+
+ po/nb.po | 28 ++++++++++++++--------------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
+
+commit a4d75ae94616234145c3b4a8f83ec5bd2ff27813
+Author: Kowalski7cc <kowalski.7cc@gmail.com>
+Date:   Thu Jan 21 00:42:32 2021 +0100
+
+    window: Mark close button in close confirmation dialogue as destructive
+    
+    Fixes: https://gitlab.gnome.org/GNOME/gnome-terminal/-/issues/252
+
+ src/terminal-window.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit 31b758c1719f2a2c4ccfb3442ef6dec4a6cf7b61
+Author: Fabio Tomat <f.t.public@gmail.com>
+Date:   Sun Jan 17 13:15:01 2021 +0000
+
+    Update Friulian translation
+
+ po/fur.po | 64 +++++++++++++++++++++++++++++++--------------------------------
+ 1 file changed, 32 insertions(+), 32 deletions(-)
+
+commit 3cb2777272c46719ed211e0220b1031ad4a9db47
+Author: Jordi Mas <jmas@softcatala.org>
+Date:   Sat Jan 16 14:15:28 2021 +0100
+
+    Update Catalan translation
+
+ po/ca.po | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 33a62bf699c17c0ac10e1d9b6676240ae363dc7f
+Author: Kukuh Syafaat <kukuhsyafaat@gnome.org>
+Date:   Thu Jan 14 12:59:24 2021 +0000
+
+    Update Indonesian translation
+
+ po/id.po | 105 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 57 insertions(+), 48 deletions(-)
+
+commit 391e1abdb7e66cd92e1ba568cf3ca19b4c44508b
+Author: Matej Urbančič <mateju@svn.gnome.org>
+Date:   Tue Jan 12 17:04:43 2021 +0000
+
+    Update Slovenian translation
+
+ po/sl.po | 126 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 68 insertions(+), 58 deletions(-)
+
+commit 0d92ba1ba2624334c80dce54ab7ec34c8543ea0b
+Author: Boyuan Yang <073plan@gmail.com>
+Date:   Tue Jan 12 00:35:45 2021 +0000
+
+    Update Chinese (China) translation
+
+ po/zh_CN.po | 101 +++++++++++++++++++++++++++++++++---------------------------
+ 1 file changed, 55 insertions(+), 46 deletions(-)
+
+commit 86009008666147c67a8d67375deed2575cfead07
+Author: Jordi Mas <jmas@softcatala.org>
+Date:   Fri Jan 8 22:46:29 2021 +0100
+
+    Update Catalan translation
+
+ help/ca/ca.po | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
+
+commit 4fb079a567b012b576b21b04fd7f4e4417828c68
+Author: Hugo Carvalho <hugokarvalho@hotmail.com>
+Date:   Fri Jan 8 15:44:06 2021 +0000
+
+    Update Portuguese translation
+
+ po/pt.po | 1636 +++++++++++++++++++++++++++++++-------------------------------
+ 1 file changed, 825 insertions(+), 811 deletions(-)
+
+commit 9d2953d3b0b6a82a1958081cd9e01b14bbb776a7
+Author: Jordi Mas <jmas@softcatala.org>
+Date:   Wed Jan 6 22:22:32 2021 +0100
+
+    Update Catalan translation
+
+ po/ca.po | 115 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 62 insertions(+), 53 deletions(-)
+
+commit 926be4adc210b94f630c41a168d6b846b18d9af8
+Author: Akarshan Biswas <akarshan.biswas@hotmail.com>
+Date:   Mon Jan 4 08:27:36 2021 +0000
+
+    Update Bengali (India) translation
+    
+    (cherry picked from commit 8682ee73244a9ad92d19cd3b52cb04a0155d4282)
+
+ po/bn_IN.po | 3384 ++++++++++++++++++++++++++++++++++-------------------------
+ 1 file changed, 1982 insertions(+), 1402 deletions(-)
+
+commit adeb0a07760b48d63dc186cd2efd07b6a775901a
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Thu Dec 31 20:53:56 2020 +0100
+
+    search: Use timestamp when presenting the search dialogue
+    
+    https://gitlab.gnome.org/GNOME/gnome-terminal/-/issues/294
+
+ src/terminal-window.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+commit 7c0aaf22b84494332dce09f36e238e6d3f15ab2b
+Author: Fabio Tomat <f.t.public@gmail.com>
+Date:   Thu Dec 31 09:17:35 2020 +0000
+
+    Update Friulian translation
+
+ po/fur.po | 128 +++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 69 insertions(+), 59 deletions(-)
+
+commit a3fb77dcf0f260c41ca4941dce2c4491b8d5d5c7
+Author: Jordi Mas <jmas@softcatala.org>
+Date:   Tue Dec 29 22:50:30 2020 +0100
+
+    Update Catalan translation
+
+ help/ca/ca.po | 42 +++++++++++++++++++++---------------------
+ 1 file changed, 21 insertions(+), 21 deletions(-)
+
+commit 5537aca2547571cebb1167381033a05bd3e43302
+Author: Philipp Kiemle <philipp.kiemle@gmail.com>
+Date:   Sun Dec 27 11:38:42 2020 +0000
+
+    Update German translation
+
+ po/de.po | 120 +++++++++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 66 insertions(+), 54 deletions(-)
+
+commit f806a81dc955ae5fcab7f651dcf58bec02a70a82
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Sat Dec 26 14:59:49 2020 +0100
+
+    desktop: Set StartupWMClass
+    
+    This isn't necessary for gnome-shell, but some other DEs need this to
+    match gnome-terminal-server to the correct name.
+    
+    Fixes: https://gitlab.gnome.org/GNOME/gnome-terminal/-/issues/314
+
+ org.gnome.Terminal.desktop.in.in | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 447514a6c30501b8b8c2534c467112d873b2e542
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Sat Dec 26 14:24:35 2020 +0100
+
+    schemas: Use consistent accelerator string
+    
+    Fixes: https://gitlab.gnome.org/GNOME/gnome-terminal/-/issues/258
+
+ src/org.gnome.Terminal.gschema.xml | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
+
+commit 8d2ea58d6049aba02448b622b6ad2b97919ad9f8
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Sat Dec 26 13:42:56 2020 +0100
+
+    search: Make sure to focus the search dialogue
+    
+    ... when it already exists; and move focus to the search entry.
+    
+    Fixes: https://gitlab.gnome.org/GNOME/gnome-terminal/-/issues/294
+
+ src/terminal-search-popover.c | 11 +++++++++++
+ src/terminal-window.c         |  6 ++++--
+ 2 files changed, 15 insertions(+), 2 deletions(-)
+
+commit aa45ba5c83d8e8940dc20e24397dc4475a72441d
+Author: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
+Date:   Fri Dec 25 18:01:12 2020 +0100
+
+    screen: Manually handle env inheritance
+    
+    Don't let VTE handle merging the environment; build the merged block
+    ourselves. This avoids confusion when we reuse the exec data.
+    
+    https://gitlab.gnome.org/GNOME/gnome-terminal/-/issues/303
+
+ src/terminal-screen.c | 29 ++++++++++++++++-------------
+ 1 file changed, 16 insertions(+), 13 deletions(-)
+
+commit 28c35c6017e7264b7b4ecd2883e5a0141bac614c
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Fri Dec 25 18:01:12 2020 +0100
+
+    client: Filter out some more env variables
+
+ src/terminal-client-utils.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 8979ac4cbfbaa11237ddaf5132393f6a99d0c6ea
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Fri Dec 25 18:01:12 2020 +0100
+
+    server: Filter environment variables in the server too
+
+ src/Makefile.am             |  2 ++
+ src/terminal-client-utils.c | 88 ++++++++++++++++++++++++++++++---------------
+ src/terminal-client-utils.h |  6 +++-
+ src/terminal-screen.c       | 19 +++-------
+ 4 files changed, 72 insertions(+), 43 deletions(-)
+
+commit c42d9ccf31923f2b1e2eb59c40b48bf196846c7a
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Fri Dec 25 18:01:12 2020 +0100
+
+    nautilus: Pass environment when creating a terminal in the current directory
+    
+    Fixes: https://gitlab.gnome.org/GNOME/gnome-terminal/-/issues/303
+
+ src/terminal-client-utils.c | 3 +++
+ src/terminal-nautilus.c     | 2 +-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+
+commit 93001885a29a3e7dd105530c991f6dbde428154b
+Author: Jordi Mas <jmas@softcatala.org>
+Date:   Thu Dec 24 22:30:29 2020 +0100
+
+    Update Catalan translation
+
+ help/ca/ca.po | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
+
+commit f51f89a5865605749dac05320c94ae1a7e25567e
+Author: Jordi Mas <jmas@softcatala.org>
+Date:   Wed Dec 23 18:45:37 2020 +0100
+
+    Update Catalan translation
+
+ help/ca/ca.po | 85 +++++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 44 insertions(+), 41 deletions(-)
+
+commit 4a59467ece9f328f256eea08c76efe0b2c2593ec
+Author: Jordi Mas i Hernandez <jmas@softcatala.org>
+Date:   Wed Dec 23 09:34:57 2020 +0000
+
+    Update Catalan translation
+
+ po/ca.po | 278 +++++++++++++++++++++++++++++++--------------------------------
+ 1 file changed, 139 insertions(+), 139 deletions(-)
+
+commit 30c1a7f87db1cd3ae2359d2464dac0034c17e0e9
+Author: Florentina Mușat <florentina.musat.28@gmail.com>
+Date:   Sat Dec 12 17:20:57 2020 +0000
+
+    Update Romanian translation
+
+ po/ro.po | 103 +++++++++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 57 insertions(+), 46 deletions(-)
+
+commit c466aed346660556260bd78bc489669dfa42340e
+Author: Kjartan Maraas <kmaraas@gnome.org>
+Date:   Fri Dec 4 13:54:45 2020 +0000
+
+    Update Norwegian Bokmål translation
+    
+    (cherry picked from commit fcc742cc49b7e9c6a97802acd2dcdd58a9b3bf33)
+
+ po/nb.po | 1547 ++++++++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 846 insertions(+), 701 deletions(-)
+
+commit 367ba142b24a22d392e94b62cff34975aee456eb
+Author: Daniel Mustieles <daniel.mustieles@gmail.com>
+Date:   Wed Dec 2 13:54:20 2020 +0100
+
+    Updated Spanish translation
+
+ po/es.po | 103 +++++++++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 57 insertions(+), 46 deletions(-)
+
+commit 3e3cbbee5c33e0c4379f39bc2f11ae70246d179b
+Author: Yuri Chornoivan <yurchor@ukr.net>
+Date:   Fri Nov 27 07:21:08 2020 +0000
+
+    Update Ukrainian translation
+
+ po/uk.po | 105 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 57 insertions(+), 48 deletions(-)
+
+commit 7ddcc33e0d0ce322588c7e121a13aad73342b3e1
+Author: Michael Catanzaro <mcatanzaro@gnome.org>
+Date:   Mon Nov 23 15:53:46 2020 +0000
+
+    Remove compulsory_for_desktop
+    
+    https://gitlab.gnome.org/GNOME/gnome-software/-/issues/445
+
+ org.gnome.Terminal.appdata.xml.in | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit d18c292d98a4ea14c827c3c65d3ece5bf8714721
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Tue Nov 17 21:45:10 2020 +0100
+
+    about: Mention the gnome version corresponding to the release
+
+ src/terminal-util.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+commit 59886f9e7d2b2447c1c52cd23d866d9a531581ae
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Tue Nov 17 21:45:10 2020 +0100
+
+    window: Add option to decode timestamps in context menu
+    
+    Based on a patch by Egmont Koblinger <egmont@gmail.com>.
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=757540
+
+ src/org.gnome.Terminal.gschema.xml |  5 ++++
+ src/terminal-libgsystem.h          | 10 +++++++
+ src/terminal-schemas.h             |  1 +
+ src/terminal-screen.c              | 21 ++++++++++----
+ src/terminal-screen.h              |  1 +
+ src/terminal-util.c                | 59 +++++++++++++++++++++++++++++++-------
+ src/terminal-util.h                |  1 +
+ src/terminal-window.c              | 30 +++++++++++++++----
+ 8 files changed, 105 insertions(+), 23 deletions(-)
+
+commit 25c96f18ac270c3d1cf5b2b5e320ce29ebc8282a
+Author: Fabio Tomat <f.t.public@gmail.com>
+Date:   Sun Oct 18 14:58:23 2020 +0000
+
+    Update Friulian translation
+
+ po/fur.po | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
+
+commit 36dafa7b2eca439158863614cadb9e1e7df233a9
+Author: Cheng-Chia Tseng <pswo10680@gmail.com>
+Date:   Mon Oct 12 14:16:30 2020 +0000
+
+    Update Chinese (Taiwan) translation
+    
+    (cherry picked from commit 25fa764fef8219a4aaa9c51814be31f37ad1d6ff)
+
+ po/zh_TW.po | 376 +++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 194 insertions(+), 182 deletions(-)
+
+commit 4f5bc124df78e2318b6ed2cae837c97fd1c61ade
+Author: Andika Triwidada <atriwidada@gnome.org>
+Date:   Wed Oct 7 09:02:39 2020 +0200
+
+    Add Indonesian help translation
+
+ help/id/id.po | 3681 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 3681 insertions(+)
+
+commit c0b0f25dba970ae0f9a0e5164e53efcc06aef5f0
+Author: Daniel Mustieles <daniel.mustieles@gmail.com>
+Date:   Mon Oct 5 09:11:30 2020 +0200
+
+    Added id language to help
+
+ help/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit a4347301732fc12189f00d50273ade53cfc4cafb
+Author: Jordi Mas <jmas@softcatala.org>
+Date:   Sat Oct 3 13:29:17 2020 +0200
+
+    Update Catalan translation
+
+ po/ca.po | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 3063616c57237cd54ad0f6b50cfc8d5602f59160
+Author: Yosef Or Boczko <yoseforb@gnome.org>
+Date:   Mon Sep 28 22:13:19 2020 +0000
+
+    Update Hebrew translation
+    
+    (cherry picked from commit a2354de2544f5fa28c1f7599da95bbc67a37b99c)
+
+ po/he.po | 931 ++++++++++++++++++++++++++++-----------------------------------
+ 1 file changed, 409 insertions(+), 522 deletions(-)
+
+commit aadabfe69a014a9d2ad6d8a5735dcbbbd4e95cc6
 Author: Jordi Mas <jmas@softcatala.org>
 Date:   Tue Sep 15 21:43:50 2020 +0200
 
@@ -187,29 +925,22 @@ Date:   Tue Sep 15 21:43:50 2020 +0200
  help/ca/ca.po | 8 ++++----
  1 file changed, 4 insertions(+), 4 deletions(-)
 
-commit ebb9e2bfc18d9e5f87bbb02203f55d15389ee8a4
+commit 3d9cb0e4ca43340de8a956e7c5711e85afa2be66
 Author: Juliano Camargo <julianosc@protonmail.com>
-Date:   Mon Sep 14 22:11:40 2020 +0000
+Date:   Sun Sep 13 02:09:29 2020 +0000
 
     Update Portuguese translation
+    
+    (cherry picked from commit a8cd6749212bb63bcc241ea44c5dfaef959da9d7)
 
- po/pt.po | 3179 ++++++++++++++++++++++++++++++++++++--------------------------
- 1 file changed, 1859 insertions(+), 1320 deletions(-)
+ po/pt.po | 2808 +++++++++++++++++++++++++++++++++++---------------------------
+ 1 file changed, 1610 insertions(+), 1198 deletions(-)
 
-commit 093ab38c7bc5cea0c68512d03010607921348fa2
+commit ca53dcc9983adc1c12e5d20b69dedfa831545a6c
 Author: Christian Persch <chpe@src.gnome.org>
-Date:   Sat Sep 12 21:22:19 2020 +0200
+Date:   Sat Sep 12 21:25:22 2020 +0200
 
-    build: Post release version bump
-
- configure.ac | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-commit 2f365483950a99c14d9cf88a21a4820b16780fc4
-Author: Christian Persch <chpe@src.gnome.org>
-Date:   Sat Sep 12 21:18:51 2020 +0200
-
-    Version 3.38.0
+    build: Post branch version bump
 
  configure.ac | 6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)

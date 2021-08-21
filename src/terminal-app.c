@@ -32,6 +32,7 @@
 #include "terminal-debug.h"
 #include "terminal-app.h"
 #include "terminal-accels.h"
+#include "terminal-client-utils.h"
 #include "terminal-screen.h"
 #include "terminal-screen-container.h"
 #include "terminal-window.h"
@@ -54,15 +55,21 @@
 #include <stdlib.h>
 #include <time.h>
 
+#ifdef GDK_WINDOWING_X11
+#include <gdk/gdkx.h>
+#endif
+
 #define DESKTOP_INTERFACE_SETTINGS_SCHEMA       "org.gnome.desktop.interface"
 
 #define SYSTEM_PROXY_SETTINGS_SCHEMA            "org.gnome.system.proxy"
+#define SYSTEM_HTTP_PROXY_SETTINGS_SCHEMA       "org.gnome.system.proxy.http"
+#define SYSTEM_HTTPS_PROXY_SETTINGS_SCHEMA      "org.gnome.system.proxy.https"
+#define SYSTEM_FTP_PROXY_SETTINGS_SCHEMA        "org.gnome.system.proxy.ftp"
+#define SYSTEM_SOCKS_PROXY_SETTINGS_SCHEMA      "org.gnome.system.proxy.socks"
 
 #define GTK_SETTING_PREFER_DARK_THEME           "gtk-application-prefer-dark-theme"
 
 #define GTK_DEBUG_SETTING_SCHEMA                "org.gtk.Settings.Debug"
-#define GTK_DEBUG_ENABLE_INSPECTOR_KEY          "enable-inspector-keybinding"
-#define GTK_DEBUG_ENABLE_INSPECTOR_TYPE         G_VARIANT_TYPE_BOOLEAN
 
 #ifdef DISUNIFY_NEW_TERMINAL_SECTION
 #error Use a gsettings override instead
@@ -94,9 +101,11 @@ struct _TerminalApp
 
   GHashTable *screen_map;
 
+  GSettingsSchemaSource* schema_source;
   GSettings *global_settings;
   GSettings *desktop_interface_settings;
   GSettings *system_proxy_settings;
+  GSettings* system_proxy_protocol_settings[4];
   GSettings *gtk_debug_settings;
 
 #ifdef ENABLE_SEARCH_PROVIDER
@@ -796,19 +805,44 @@ terminal_app_init (TerminalApp *app)
 
   gtk_window_set_default_icon_name (GNOME_TERMINAL_ICON_NAME);
 
+  app->schema_source = terminal_g_settings_schema_source_get_default();
+
   /* Desktop proxy settings */
-  app->system_proxy_settings = g_settings_new (SYSTEM_PROXY_SETTINGS_SCHEMA);
+  app->system_proxy_settings = terminal_g_settings_new(app->schema_source,
+                                                       SYSTEM_PROXY_SETTINGS_SCHEMA);
+
+  /* Since there is no way to get the schema ID of a child schema, we cannot
+   * verify that the installed schemas are correct. Also, due to a glib bug
+   * (https://gitlab.gnome.org/GNOME/glib/-/issues/1884) g_settings_get_child()
+   * doesn't work with non-default schema sources.
+   * So instead of using g_settings_get_child() on the SYSTEM_PROXY_SETTINGS_SCHEMA,
+   * we construct the child GSettings directly.
+   */
+  app->system_proxy_protocol_settings[TERMINAL_PROXY_HTTP] =
+    terminal_g_settings_new(app->schema_source,
+                            SYSTEM_HTTP_PROXY_SETTINGS_SCHEMA);
+  app->system_proxy_protocol_settings[TERMINAL_PROXY_HTTPS] =
+    terminal_g_settings_new(app->schema_source,
+                            SYSTEM_HTTPS_PROXY_SETTINGS_SCHEMA);
+  app->system_proxy_protocol_settings[TERMINAL_PROXY_FTP] =
+    terminal_g_settings_new(app->schema_source,
+                            SYSTEM_FTP_PROXY_SETTINGS_SCHEMA);
+  app->system_proxy_protocol_settings[TERMINAL_PROXY_SOCKS] =
+    terminal_g_settings_new(app->schema_source,
+                            SYSTEM_SOCKS_PROXY_SETTINGS_SCHEMA);
 
   /* Desktop Interface settings */
-  app->desktop_interface_settings = g_settings_new (DESKTOP_INTERFACE_SETTINGS_SCHEMA);
+  app->desktop_interface_settings = terminal_g_settings_new(app->schema_source,
+                                                            DESKTOP_INTERFACE_SETTINGS_SCHEMA);
 
   /* Terminal global settings */
-  app->global_settings = g_settings_new (TERMINAL_SETTING_SCHEMA);
+  app->global_settings = terminal_g_settings_new(app->schema_source,
+                                                 TERMINAL_SETTING_SCHEMA);
 
   /* Gtk debug settings */
-  app->gtk_debug_settings = terminal_g_settings_new (GTK_DEBUG_SETTING_SCHEMA,
-                                                     GTK_DEBUG_ENABLE_INSPECTOR_KEY,
-                                                     GTK_DEBUG_ENABLE_INSPECTOR_TYPE);
+  app->gtk_debug_settings = terminal_g_settings_new(app->schema_source,
+                                                    GTK_DEBUG_SETTING_SCHEMA);
+;
 
   /* These are internal settings that exists only for distributions
    * to override, so we cache them on startup and don't react to changes.
@@ -831,15 +865,21 @@ terminal_app_init (TerminalApp *app)
   g_signal_connect (app->clipboard, "owner-change",
                     G_CALLBACK (clipboard_owner_change_cb), app);
 
-  if (!gdk_display_supports_selection_notification (display))
+#ifdef GDK_WINDOWING_X11
+  if (GDK_IS_X11_DISPLAY(display) &&
+      !gdk_display_supports_selection_notification (display))
     g_printerr ("Display does not support owner-change; copy/paste will be broken!\n");
+#endif
 
   /* Get the profiles */
-  app->profiles_list = terminal_profiles_list_new ();
+  app->profiles_list = terminal_profiles_list_new(app->schema_source);
 
   app->screen_map = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
-  gs_unref_object GSettings *settings = g_settings_get_child (app->global_settings, "keybindings");
+  gs_unref_object GSettings *settings =
+    terminal_g_settings_new_with_path(app->schema_source,
+                                      TERMINAL_KEYBINDINGS_SCHEMA,
+                                      TERMINAL_KEYBINDINGS_SCHEMA_PATH);
   terminal_accels_init (G_APPLICATION (app), settings, app->use_headerbar);
 }
 
@@ -861,7 +901,10 @@ terminal_app_finalize (GObject *object)
   g_object_unref (app->global_settings);
   g_object_unref (app->desktop_interface_settings);
   g_object_unref (app->system_proxy_settings);
+  for (int i = 0; i < 4; ++i)
+    g_object_unref(app->system_proxy_protocol_settings[i]);
   g_clear_object (&app->gtk_debug_settings);
+  g_settings_schema_source_unref(app->schema_source);
 
   g_clear_object (&app->menubar);
   g_clear_object (&app->menubar_new_terminal_section);
@@ -1177,6 +1220,18 @@ terminal_app_get_profile_section (TerminalApp *app)
 }
 
 /**
+ * terminal_app_get_schema_source:
+ * @app: a #TerminalApp
+ *
+ * Returns: (tranfer none): the #GSettingsSchemaSource to use for all #GSettings instances
+ */
+GSettingsSchemaSource*
+terminal_app_get_schema_source(TerminalApp *app)
+{
+  return app->schema_source;
+}
+
+/**
  * terminal_app_get_global_settings:
  * @app: a #TerminalApp
  *
@@ -1210,6 +1265,20 @@ GSettings *
 terminal_app_get_proxy_settings (TerminalApp *app)
 {
   return app->system_proxy_settings;
+}
+
+/**
+ * terminal_app_get_proxy_settings_for_protocol:
+ * @app: a #TerminalApp
+ * @protocol: a #TerminalProxyProtocol
+ *
+ * Returns: (tranfer none): the cached #GSettings object for the org.gnome.system.proxy.@protocol schema
+ */
+GSettings*
+terminal_app_get_proxy_settings_for_protocol(TerminalApp *app,
+                                             TerminalProxyProtocol protocol)
+{
+  return app->system_proxy_protocol_settings[(int)protocol];
 }
 
 GSettings *
