@@ -127,7 +127,8 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libexecdir)" \
 	"$(DESTDIR)$(nautilusextensiondir)" \
 	"$(DESTDIR)$(dbusservicedir)" "$(DESTDIR)$(searchproviderdir)" \
-	"$(DESTDIR)$(systemduserdir)"
+	"$(DESTDIR)$(systemduserdir)" \
+	"$(DESTDIR)$(referenceschemadir)"
 PROGRAMS = $(bin_PROGRAMS) $(libexec_PROGRAMS) $(noinst_PROGRAMS)
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
 am__vpath_adj = case $$p in \
@@ -203,6 +204,7 @@ gnome_terminal_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 am__gnome_terminal_server_SOURCES_DIST = eggshell.c eggshell.h \
 	profile-editor.c profile-editor.h server.c terminal-accels.c \
 	terminal-accels.h terminal-app.c terminal-app.h \
+	terminal-client-utils.c terminal-client-utils.h \
 	terminal-debug.c terminal-debug.h terminal-defines.h \
 	terminal-enums.h terminal-gdbus.c terminal-gdbus.h \
 	terminal-headerbar.c terminal-headerbar.h \
@@ -230,6 +232,7 @@ am_gnome_terminal_server_OBJECTS =  \
 	gnome_terminal_server-server.$(OBJEXT) \
 	gnome_terminal_server-terminal-accels.$(OBJEXT) \
 	gnome_terminal_server-terminal-app.$(OBJEXT) \
+	gnome_terminal_server-terminal-client-utils.$(OBJEXT) \
 	gnome_terminal_server-terminal-debug.$(OBJEXT) \
 	gnome_terminal_server-terminal-gdbus.$(OBJEXT) \
 	gnome_terminal_server-terminal-headerbar.$(OBJEXT) \
@@ -303,6 +306,7 @@ am__depfiles_remade =  \
 	./$(DEPDIR)/gnome_terminal_server-server.Po \
 	./$(DEPDIR)/gnome_terminal_server-terminal-accels.Po \
 	./$(DEPDIR)/gnome_terminal_server-terminal-app.Po \
+	./$(DEPDIR)/gnome_terminal_server-terminal-client-utils.Po \
 	./$(DEPDIR)/gnome_terminal_server-terminal-debug.Po \
 	./$(DEPDIR)/gnome_terminal_server-terminal-gdbus-generated.Po \
 	./$(DEPDIR)/gnome_terminal_server-terminal-gdbus.Po \
@@ -370,7 +374,7 @@ am__can_run_installinfo = \
 am__dist_searchprovider_DATA_DIST =  \
 	gnome-terminal-search-provider.ini
 DATA = $(dbusservice_DATA) $(dist_searchprovider_DATA) \
-	$(nodist_systemduser_DATA)
+	$(nodist_systemduser_DATA) $(referenceschema_DATA)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
 # and print each of them once, without duplicates.  Input order is
@@ -762,19 +766,20 @@ gnome_terminal_server_built = terminal-marshal.c terminal-marshal.h \
 	terminal-menubar-without-mnemonics.ui $(NULL) $(am__append_1)
 gnome_terminal_server_SOURCES = eggshell.c eggshell.h profile-editor.c \
 	profile-editor.h server.c terminal-accels.c terminal-accels.h \
-	terminal-app.c terminal-app.h terminal-debug.c \
-	terminal-debug.h terminal-defines.h terminal-enums.h \
-	terminal-gdbus.c terminal-gdbus.h terminal-headerbar.c \
-	terminal-headerbar.h terminal-icon-button.h \
-	terminal-icon-button.c terminal-info-bar.c terminal-info-bar.h \
-	terminal-intl.h terminal-i18n.c terminal-i18n.h \
-	terminal-libgsystem.h terminal-mdi-container.c \
-	terminal-mdi-container.h terminal-menu-button.h \
-	terminal-menu-button.c terminal-notebook.c terminal-notebook.h \
-	terminal-pcre2.h terminal-prefs.c terminal-prefs.h \
-	terminal-profiles-list.c terminal-profiles-list.h \
-	terminal-regex.h terminal-schemas.h terminal-settings-list.c \
-	terminal-settings-list.h terminal-screen.c terminal-screen.h \
+	terminal-app.c terminal-app.h terminal-client-utils.c \
+	terminal-client-utils.h terminal-debug.c terminal-debug.h \
+	terminal-defines.h terminal-enums.h terminal-gdbus.c \
+	terminal-gdbus.h terminal-headerbar.c terminal-headerbar.h \
+	terminal-icon-button.h terminal-icon-button.c \
+	terminal-info-bar.c terminal-info-bar.h terminal-intl.h \
+	terminal-i18n.c terminal-i18n.h terminal-libgsystem.h \
+	terminal-mdi-container.c terminal-mdi-container.h \
+	terminal-menu-button.h terminal-menu-button.c \
+	terminal-notebook.c terminal-notebook.h terminal-pcre2.h \
+	terminal-prefs.c terminal-prefs.h terminal-profiles-list.c \
+	terminal-profiles-list.h terminal-regex.h terminal-schemas.h \
+	terminal-settings-list.c terminal-settings-list.h \
+	terminal-screen.c terminal-screen.h \
 	terminal-screen-container.c terminal-screen-container.h \
 	terminal-search-popover.c terminal-search-popover.h \
 	terminal-tab-label.c terminal-tab-label.h terminal-util.c \
@@ -785,6 +790,7 @@ gnome_terminal_server_CPPFLAGS = \
 	-DTERMINAL_COMPILATION \
 	-DVTE_DISABLE_DEPRECATION_WARNINGS \
 	-DTERM_LOCALEDIR="\"$(datadir)/locale\"" \
+	-DTERM_PKGLIBDIR="\"$(pkglibdir)\"" \
 	$(AM_CPPFLAGS)
 
 gnome_terminal_server_CFLAGS = \
@@ -861,6 +867,7 @@ gnome_terminal_CPPFLAGS = \
 	-DTERM_DATADIR="\"$(datadir)\"" \
 	-DTERM_LOCALEDIR="\"$(datadir)/locale\"" \
 	-DTERM_PKGDATADIR="\"$(pkgdatadir)\"" \
+	-DTERM_PKGLIBDIR="\"$(pkglibdir)\"" \
 	$(AM_CPPFLAGS)
 
 gnome_terminal_CFLAGS = \
@@ -918,12 +925,22 @@ gsettings_SCHEMAS = \
 	org.gnome.Terminal.gschema.xml \
 	$(NULL)
 
+external_gsettings_schemas = \
+	external.gschema.xml \
+	$(NULL)
+
+referenceschemadir = $(pkglibdir)
+referenceschema_DATA = \
+	gschemas.compiled \
+	$(NULL)
+
 CLEANFILES = \
 	stamp-terminal-type-builtins.h \
 	gnome-terminal.schemas \
 	stamp-terminal-type-builtins.h \
 	org.gnome.Terminal.service \
 	gnome-terminal-server.service \
+	gschemas.compiled \
 	$(BUILT_SOURCES)
 
 EXTRA_DIST = \
@@ -945,6 +962,7 @@ EXTRA_DIST = \
 	$(about_DATA) \
 	$(builder_DATA) \
 	$(gsettings_SCHEMAS) \
+	$(external_gsettings_schemas) \
 	$(NULL)
 
 all: $(BUILT_SOURCES)
@@ -1170,6 +1188,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gnome_terminal_server-server.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gnome_terminal_server-terminal-accels.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gnome_terminal_server-terminal-app.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gnome_terminal_server-terminal-client-utils.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gnome_terminal_server-terminal-debug.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gnome_terminal_server-terminal-gdbus-generated.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gnome_terminal_server-terminal-gdbus.Po@am__quote@ # am--include-marker
@@ -1458,6 +1477,20 @@ gnome_terminal_server-terminal-app.obj: terminal-app.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='terminal-app.c' object='gnome_terminal_server-terminal-app.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_terminal_server_CPPFLAGS) $(CPPFLAGS) $(gnome_terminal_server_CFLAGS) $(CFLAGS) -c -o gnome_terminal_server-terminal-app.obj `if test -f 'terminal-app.c'; then $(CYGPATH_W) 'terminal-app.c'; else $(CYGPATH_W) '$(srcdir)/terminal-app.c'; fi`
+
+gnome_terminal_server-terminal-client-utils.o: terminal-client-utils.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_terminal_server_CPPFLAGS) $(CPPFLAGS) $(gnome_terminal_server_CFLAGS) $(CFLAGS) -MT gnome_terminal_server-terminal-client-utils.o -MD -MP -MF $(DEPDIR)/gnome_terminal_server-terminal-client-utils.Tpo -c -o gnome_terminal_server-terminal-client-utils.o `test -f 'terminal-client-utils.c' || echo '$(srcdir)/'`terminal-client-utils.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gnome_terminal_server-terminal-client-utils.Tpo $(DEPDIR)/gnome_terminal_server-terminal-client-utils.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='terminal-client-utils.c' object='gnome_terminal_server-terminal-client-utils.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_terminal_server_CPPFLAGS) $(CPPFLAGS) $(gnome_terminal_server_CFLAGS) $(CFLAGS) -c -o gnome_terminal_server-terminal-client-utils.o `test -f 'terminal-client-utils.c' || echo '$(srcdir)/'`terminal-client-utils.c
+
+gnome_terminal_server-terminal-client-utils.obj: terminal-client-utils.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_terminal_server_CPPFLAGS) $(CPPFLAGS) $(gnome_terminal_server_CFLAGS) $(CFLAGS) -MT gnome_terminal_server-terminal-client-utils.obj -MD -MP -MF $(DEPDIR)/gnome_terminal_server-terminal-client-utils.Tpo -c -o gnome_terminal_server-terminal-client-utils.obj `if test -f 'terminal-client-utils.c'; then $(CYGPATH_W) 'terminal-client-utils.c'; else $(CYGPATH_W) '$(srcdir)/terminal-client-utils.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gnome_terminal_server-terminal-client-utils.Tpo $(DEPDIR)/gnome_terminal_server-terminal-client-utils.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='terminal-client-utils.c' object='gnome_terminal_server-terminal-client-utils.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_terminal_server_CPPFLAGS) $(CPPFLAGS) $(gnome_terminal_server_CFLAGS) $(CFLAGS) -c -o gnome_terminal_server-terminal-client-utils.obj `if test -f 'terminal-client-utils.c'; then $(CYGPATH_W) 'terminal-client-utils.c'; else $(CYGPATH_W) '$(srcdir)/terminal-client-utils.c'; fi`
 
 gnome_terminal_server-terminal-debug.o: terminal-debug.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_terminal_server_CPPFLAGS) $(CPPFLAGS) $(gnome_terminal_server_CFLAGS) $(CFLAGS) -MT gnome_terminal_server-terminal-debug.o -MD -MP -MF $(DEPDIR)/gnome_terminal_server-terminal-debug.Tpo -c -o gnome_terminal_server-terminal-debug.o `test -f 'terminal-debug.c' || echo '$(srcdir)/'`terminal-debug.c
@@ -1877,6 +1910,27 @@ uninstall-nodist_systemduserDATA:
 	@list='$(nodist_systemduser_DATA)'; test -n "$(systemduserdir)" || list=; \
 	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
 	dir='$(DESTDIR)$(systemduserdir)'; $(am__uninstall_files_from_dir)
+install-referenceschemaDATA: $(referenceschema_DATA)
+	@$(NORMAL_INSTALL)
+	@list='$(referenceschema_DATA)'; test -n "$(referenceschemadir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(referenceschemadir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(referenceschemadir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(referenceschemadir)'"; \
+	  $(INSTALL_DATA) $$files "$(DESTDIR)$(referenceschemadir)" || exit $$?; \
+	done
+
+uninstall-referenceschemaDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(referenceschema_DATA)'; test -n "$(referenceschemadir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(referenceschemadir)'; $(am__uninstall_files_from_dir)
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
@@ -2133,7 +2187,7 @@ check: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) check-am
 all-am: Makefile $(PROGRAMS) $(LTLIBRARIES) $(DATA)
 installdirs:
-	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libexecdir)" "$(DESTDIR)$(nautilusextensiondir)" "$(DESTDIR)$(dbusservicedir)" "$(DESTDIR)$(searchproviderdir)" "$(DESTDIR)$(systemduserdir)"; do \
+	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libexecdir)" "$(DESTDIR)$(nautilusextensiondir)" "$(DESTDIR)$(dbusservicedir)" "$(DESTDIR)$(searchproviderdir)" "$(DESTDIR)$(systemduserdir)" "$(DESTDIR)$(referenceschemadir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: $(BUILT_SOURCES)
@@ -2194,6 +2248,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/gnome_terminal_server-server.Po
 	-rm -f ./$(DEPDIR)/gnome_terminal_server-terminal-accels.Po
 	-rm -f ./$(DEPDIR)/gnome_terminal_server-terminal-app.Po
+	-rm -f ./$(DEPDIR)/gnome_terminal_server-terminal-client-utils.Po
 	-rm -f ./$(DEPDIR)/gnome_terminal_server-terminal-debug.Po
 	-rm -f ./$(DEPDIR)/gnome_terminal_server-terminal-gdbus-generated.Po
 	-rm -f ./$(DEPDIR)/gnome_terminal_server-terminal-gdbus.Po
@@ -2243,7 +2298,7 @@ info-am:
 install-data-am: install-dbusserviceDATA \
 	install-dist_searchproviderDATA \
 	install-nautilusextensionLTLIBRARIES \
-	install-nodist_systemduserDATA
+	install-nodist_systemduserDATA install-referenceschemaDATA
 
 install-dvi: install-dvi-am
 
@@ -2286,6 +2341,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/gnome_terminal_server-server.Po
 	-rm -f ./$(DEPDIR)/gnome_terminal_server-terminal-accels.Po
 	-rm -f ./$(DEPDIR)/gnome_terminal_server-terminal-app.Po
+	-rm -f ./$(DEPDIR)/gnome_terminal_server-terminal-client-utils.Po
 	-rm -f ./$(DEPDIR)/gnome_terminal_server-terminal-debug.Po
 	-rm -f ./$(DEPDIR)/gnome_terminal_server-terminal-gdbus-generated.Po
 	-rm -f ./$(DEPDIR)/gnome_terminal_server-terminal-gdbus.Po
@@ -2335,7 +2391,7 @@ ps-am:
 uninstall-am: uninstall-binPROGRAMS uninstall-dbusserviceDATA \
 	uninstall-dist_searchproviderDATA uninstall-libexecPROGRAMS \
 	uninstall-nautilusextensionLTLIBRARIES \
-	uninstall-nodist_systemduserDATA
+	uninstall-nodist_systemduserDATA uninstall-referenceschemaDATA
 
 .MAKE: all check check-am install install-am install-strip
 
@@ -2353,15 +2409,15 @@ uninstall-am: uninstall-binPROGRAMS uninstall-dbusserviceDATA \
 	install-libexecPROGRAMS install-man \
 	install-nautilusextensionLTLIBRARIES \
 	install-nodist_systemduserDATA install-pdf install-pdf-am \
-	install-ps install-ps-am install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
-	recheck tags tags-am uninstall uninstall-am \
-	uninstall-binPROGRAMS uninstall-dbusserviceDATA \
+	install-ps install-ps-am install-referenceschemaDATA \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
+	pdf pdf-am ps ps-am recheck tags tags-am uninstall \
+	uninstall-am uninstall-binPROGRAMS uninstall-dbusserviceDATA \
 	uninstall-dist_searchproviderDATA uninstall-libexecPROGRAMS \
 	uninstall-nautilusextensionLTLIBRARIES \
-	uninstall-nodist_systemduserDATA
+	uninstall-nodist_systemduserDATA uninstall-referenceschemaDATA
 
 .PRECIOUS: Makefile
 
@@ -2436,6 +2492,9 @@ terminal-resources.h terminal-resources.c: terminal.gresource.xml Makefile $(she
 @ENABLE_SEARCH_PROVIDER_TRUE@			--c-namespace=Terminal \
 @ENABLE_SEARCH_PROVIDER_TRUE@			--generate-c-code terminal-search-provider-gdbus-generated \
 @ENABLE_SEARCH_PROVIDER_TRUE@			$<
+
+gschemas.compiled: $(gsettings_SCHEMAS) $(external_gsettings_schemas)
+	$(AM_V_GEN)$(GLIB_COMPILE_SCHEMAS) $(patsubst %,--schema-file=%,$^) --targetdir=$(builddir)
 
 @GSETTINGS_RULES@
 

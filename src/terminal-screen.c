@@ -21,6 +21,7 @@
 #include "terminal-pcre2.h"
 #include "terminal-regex.h"
 #include "terminal-screen.h"
+#include "terminal-client-utils.h"
 
 #include <errno.h>
 #include <string.h>
@@ -163,7 +164,8 @@ static char* terminal_screen_check_hyperlink   (TerminalScreen            *scree
                                                 GdkEvent                  *event);
 static void terminal_screen_check_extra (TerminalScreen *screen,
                                          GdkEvent       *event,
-                                         char           **number_info);
+                                         char           **number_info,
+                                         char           **timestamp_info);
 static char* terminal_screen_check_match       (TerminalScreen            *screen,
                                                 GdkEvent                  *event,
                                                 int                  *flavor);
@@ -945,9 +947,7 @@ terminal_screen_exec (TerminalScreen *screen,
                                                                   &shell);
 
   gboolean preserve_cwd = FALSE;
-  GSpawnFlags spawn_flags = G_SPAWN_SEARCH_PATH_FROM_ENVP;
-  if (initial_envv)
-    spawn_flags |= VTE_SPAWN_NO_PARENT_ENVV;
+  GSpawnFlags spawn_flags = G_SPAWN_SEARCH_PATH_FROM_ENVP | VTE_SPAWN_NO_PARENT_ENVV;
   gs_strfreev char **exec_argv = NULL;
   if (!terminal_screen_get_child_command (screen,
                                           argv,
@@ -1434,6 +1434,7 @@ terminal_screen_get_child_environment (TerminalScreen *screen,
 {
   TerminalApp *app = terminal_app_get ();
   char **env;
+  gs_strfreev char** current_environ = NULL;
   char *e, *v;
   GHashTable *env_table;
   GHashTableIter iter;
@@ -1442,33 +1443,27 @@ terminal_screen_get_child_environment (TerminalScreen *screen,
 
   env_table = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
-  env = initial_envv;
-  if (env)
+  if (initial_envv)
+    env = initial_envv;
+  else {
+    env = current_environ = g_get_environ ();
+    /* Remove this variable which we set in server.c:main() */
+    env = g_environ_unsetenv (env, "G_ENABLE_DIAGNOSTIC");
+  }
+
+  for (i = 0; env[i]; ++i)
     {
-      for (i = 0; env[i]; ++i)
-        {
-          v = strchr (env[i], '=');
-          if (v)
-             g_hash_table_replace (env_table, g_strndup (env[i], v - env[i]), g_strdup (v + 1));
-           else
-             g_hash_table_replace (env_table, g_strdup (env[i]), NULL);
-        }
+      v = strchr (env[i], '=');
+      if (v)
+          g_hash_table_replace (env_table, g_strndup (env[i], v - env[i]), g_strdup (v + 1));
+        else
+          g_hash_table_replace (env_table, g_strdup (env[i]), NULL);
     }
 
-  g_hash_table_remove (env_table, "COLUMNS");
-  g_hash_table_remove (env_table, "LINES");
-  g_hash_table_remove (env_table, "GNOME_DESKTOP_ICON");
-
-  /* WINDOWID does not work correctly ever since we don't use a native
-   * GdkWindow anymore, and it also becomes incorrect if the screen is
-   * moved to a different window, or the window unrealized and re-realized.
-   * Additionally, it cannot ever work on non-X11 displays like wayland.
-   * And on X11, the only use for this is broken foreign drawing on the
-   * window (w3m etc), and trying to find the focused screen (brltty),
-   * which can now be done correctly using DECSET 1004.
-   * Therefore we do not set WINDOWID, and remove an existing variable.
-   */
-  g_hash_table_remove (env_table, "WINDOWID");
+  /* Remove unwanted env variables */
+  char const* const* filters = terminal_client_get_environment_filters ();
+  for (i = 0; filters[i]; ++i)
+    g_hash_table_remove (env_table, filters[i]);
 
   terminal_util_add_proxy_env (env_table);
 
@@ -1686,6 +1681,7 @@ terminal_screen_popup_info_unref (TerminalScreenPopupInfo *info)
   g_free (info->hyperlink);
   g_free (info->url);
   g_free (info->number_info);
+  g_free (info->timestamp_info);
   g_slice_free (TerminalScreenPopupInfo, info);
 }
 
@@ -1711,7 +1707,8 @@ terminal_screen_do_popup (TerminalScreen *screen,
                           char *hyperlink,
                           char *url,
                           int url_flavor,
-                          char *number_info)
+                          char *number_info,
+                          char *timestamp_info)
 {
   TerminalScreenPopupInfo *info;
 
@@ -1723,6 +1720,7 @@ terminal_screen_do_popup (TerminalScreen *screen,
   info->url = url; /* adopted */
   info->url_flavor = url_flavor;
   info->number_info = number_info; /* adopted */
+  info->timestamp_info = timestamp_info; /* adopted */
 
   g_signal_emit (screen, signals[SHOW_POPUP_MENU], 0, info);
   terminal_screen_popup_info_unref (info);
@@ -1739,13 +1737,14 @@ terminal_screen_button_press (GtkWidget      *widget,
   gs_free char *url = NULL;
   int url_flavor = 0;
   gs_free char *number_info = NULL;
+  gs_free char *timestamp_info = NULL;
   guint state;
 
   state = event->state & gtk_accelerator_get_default_mod_mask ();
 
   hyperlink = terminal_screen_check_hyperlink (screen, (GdkEvent*)event);
   url = terminal_screen_check_match (screen, (GdkEvent*)event, &url_flavor);
-  terminal_screen_check_extra (screen, (GdkEvent*)event, &number_info);
+  terminal_screen_check_extra (screen, (GdkEvent*)event, &number_info, &timestamp_info);
 
   if (hyperlink != NULL &&
       (event->button == 1 || event->button == 2) &&
@@ -1786,19 +1785,21 @@ terminal_screen_button_press (GtkWidget      *widget,
           if (button_press_event && button_press_event (widget, event))
             return TRUE;
 
-          terminal_screen_do_popup (screen, event, hyperlink, url, url_flavor, number_info);
+          terminal_screen_do_popup (screen, event, hyperlink, url, url_flavor, number_info, timestamp_info);
           hyperlink = NULL; /* adopted to the popup info */
           url = NULL; /* ditto */
           number_info = NULL; /* ditto */
+          timestamp_info = NULL; /* ditto */
           return TRUE;
         }
       else if (!(event->state & (GDK_CONTROL_MASK | GDK_MOD1_MASK)))
         {
           /* do popup on shift+right-click */
-          terminal_screen_do_popup (screen, event, hyperlink, url, url_flavor, number_info);
+          terminal_screen_do_popup (screen, event, hyperlink, url, url_flavor, number_info, timestamp_info);
           hyperlink = NULL; /* adopted to the popup info */
           url = NULL; /* ditto */
           number_info = NULL; /* ditto */
+          timestamp_info = NULL; /* ditto */
           return TRUE;
         }
     }
@@ -2166,7 +2167,8 @@ terminal_screen_check_match (TerminalScreen *screen,
 static void
 terminal_screen_check_extra (TerminalScreen *screen,
                              GdkEvent       *event,
-                             char           **number_info)
+                             char           **number_info,
+                             char           **timestamp_info)
 {
   guint i;
   char **matches;
@@ -2194,6 +2196,7 @@ terminal_screen_check_extra (TerminalScreen *screen,
                   if (!flavor_number_found)
                     {
                       *number_info = terminal_util_number_info (matches[i]);
+                      *timestamp_info = terminal_util_timestamp_info (matches[i]);
                       flavor_number_found = TRUE;
                     }
                   g_free (matches[i]);

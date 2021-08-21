@@ -30,6 +30,8 @@ G_BEGIN_DECLS
 #define TERMINAL_SETTINGS_LIST_SCHEMA   "org.gnome.Terminal.SettingsList"
 #define TERMINAL_PROFILES_LIST_SCHEMA   "org.gnome.Terminal.ProfilesList"
 
+#define TERMINAL_KEYBINDINGS_SCHEMA_PATH "/org/gnome/terminal/legacy/keybindings/"
+
 #define TERMINAL_PROFILE_AUDIBLE_BELL_KEY               "audible-bell"
 #define TERMINAL_PROFILE_BOLD_IS_BRIGHT_KEY             "bold-is-bright"
 #define TERMINAL_PROFILE_BACKGROUND_COLOR_KEY           "background-color"
@@ -77,6 +79,7 @@ G_BEGIN_DECLS
 #define TERMINAL_PROFILE_WORD_CHAR_EXCEPTIONS_KEY       "word-char-exceptions"
 
 #define TERMINAL_SETTING_CONFIRM_CLOSE_KEY              "confirm-close"
+#define TERMINAL_SETTING_CONTEXT_INFO_KEY               "context-info"
 #define TERMINAL_SETTING_DEFAULT_SHOW_MENUBAR_KEY       "default-show-menubar"
 #define TERMINAL_SETTING_ENABLE_MENU_BAR_ACCEL_KEY      "menu-accelerator-enabled"
 #define TERMINAL_SETTING_ENABLE_MNEMONICS_KEY           "mnemonics-enabled"
