@@ -5,14 +5,14 @@ Subject: Provide fallback for reading current directory if OSC 7 fails
 Bug: https://bugzilla.gnome.org/show_bug.cgi?id=697475
 Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=712628
 ---
- src/terminal-screen.c | 66 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/terminal-screen.cc | 66 ++++++++++++++++++++++++++++++++++++++++++++++++++
  1 file changed, 66 insertions(+)
 
-diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index 10d052f..00cb825 100644
---- a/src/terminal-screen.c
-+++ b/src/terminal-screen.c
-@@ -353,6 +353,63 @@ terminal_screen_clear_exec_data (TerminalScreen *screen,
+diff --git a/src/terminal-screen.cc b/src/terminal-screen.cc
+index e2e7d2b..1f263c7 100644
+--- a/src/terminal-screen.cc
++++ b/src/terminal-screen.cc
+@@ -354,6 +354,63 @@ terminal_screen_clear_exec_data (TerminalScreen *screen,
  
  G_DEFINE_TYPE (TerminalScreen, terminal_screen, VTE_TYPE_TERMINAL)
  
@@ -26,7 +26,7 @@ index 10d052f..00cb825 100644
 +  guint i;
 +
 +  if (pid == -1)
-+    return NULL;
++    return nullptr;
 +
 +  /* Try to get the working directory using various OS-specific mechanisms */
 +  for (i = 0; i < G_N_ELEMENTS (patterns); ++i)
@@ -70,13 +70,13 @@ index 10d052f..00cb825 100644
 +        }
 +    }
 +
-+  return NULL;
++  return nullptr;
 +}
 +
  static void
  free_tag_data (TagData *tagdata)
  {
-@@ -1817,12 +1874,21 @@ terminal_screen_button_press (GtkWidget      *widget,
+@@ -1834,12 +1891,21 @@ terminal_screen_button_press (GtkWidget      *widget,
  char *
  terminal_screen_get_current_dir (TerminalScreen *screen)
  {
@@ -84,8 +84,8 @@ index 10d052f..00cb825 100644
    const char *uri;
  
    uri = vte_terminal_get_current_directory_uri (VTE_TERMINAL (screen));
-   if (uri != NULL)
-     return g_filename_from_uri (uri, NULL, NULL);
+   if (uri != nullptr)
+     return g_filename_from_uri (uri, nullptr, nullptr);
  
 +  if (priv->child_pid > 0) {
 +    char *cwd = cwd_of_pid (priv->child_pid);
