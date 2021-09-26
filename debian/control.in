@@ -3,7 +3,7 @@ Section: gnome
 Priority: optional
 Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
 Uploaders: @GNOME_TEAM@
-Build-Depends: debhelper-compat (= 12),
+Build-Depends: debhelper-compat (= 13),
                desktop-file-utils,
                dh-sequence-gnome,
                docbook-to-man,
