@@ -1,8 +1,14 @@
-gnome-terminal (3.42.0-1) UNRELEASED; urgency=medium
+gnome-terminal (3.42.0-1) unstable; urgency=medium
 
   * New upstream release
+  * Build with meson
+  * Refresh patches
+  * debian/gnome-terminal.install: AppStream metadata file was renamed
+  * debian/gnome-terminal.docs: NEWS is no longer provided
+  * Bump debhelper-compat to 13
+  * Bump Standards-Version to 4.6.0
 
- -- Jeremy Bicha <jbicha@debian.org>  Wed, 22 Sep 2021 18:13:46 -0400
+ -- Jeremy Bicha <jbicha@debian.org>  Sat, 25 Sep 2021 21:52:04 -0400
 
 gnome-terminal (3.40.3-1) unstable; urgency=medium
 
