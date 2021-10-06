@@ -1,0 +1,63 @@
+From: Christian Persch <chpe@src.gnome.org>
+Date: Mon, 23 Mar 2020 09:57:56 +0100
+Subject: screen: Use clean env when creating new tab
+
+https://gitlab.gnome.org/GNOME/gnome-terminal/issues/236
+
+Origin: backport, https://gitlab.gnome.org/GNOME/gnome-terminal/-/commit/fd5ac772154426e2da5afd633b336414bca33be9
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/1922839
+Last-Update: 2021-04-13
+---
+ src/terminal-screen.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
+
+Index: gnome-terminal-3.38.1/src/terminal-screen.c
+===================================================================
+--- gnome-terminal-3.38.1.orig/src/terminal-screen.c	2021-04-13 13:38:20.258949724 +1200
++++ gnome-terminal-3.38.1/src/terminal-screen.c	2021-04-13 13:38:20.258949724 +1200
+@@ -273,8 +273,7 @@
+ }
+ 
+ static ExecData *
+-exec_data_clone (ExecData *data,
+-                 gboolean preserve_argv)
++exec_data_clone (ExecData *data)
+ {
+   if (data == NULL)
+     return NULL;
+@@ -284,8 +283,7 @@
+   clone->cwd = g_strdup (data->cwd);
+ 
+   /* If FDs were passed, cannot repeat argv. Return data only for env and cwd */
+-  if (!preserve_argv ||
+-      data->fd_list != NULL) {
++  if (data->fd_list != NULL) {
+     clone->as_shell = TRUE;
+     return clone;
+   }
+@@ -947,7 +945,6 @@
+ 
+   g_return_val_if_fail (TERMINAL_IS_SCREEN (parent_screen), FALSE);
+ 
+-  terminal_unref_exec_data ExecData* data = exec_data_clone (parent_screen->priv->exec_data, FALSE);
+   gs_free char* cwd = terminal_screen_get_current_dir (parent_screen);
+ 
+   _terminal_debug_print (TERMINAL_DEBUG_PROCESSES,
+@@ -957,7 +954,7 @@
+                          cwd);
+ 
+   return terminal_screen_reexec_from_exec_data (screen,
+-                                                data,
++                                                NULL /* exec data */,
+                                                 NULL /* envv */,
+                                                 cwd,
+                                                 cancellable,
+@@ -1767,7 +1764,7 @@
+   }
+ 
+   /* Retain info for reexec, if possible */
+-  ExecData *new_exec_data = exec_data_clone (exec_data, TRUE);
++  ExecData *new_exec_data = exec_data_clone (exec_data);
+   terminal_screen_clear_exec_data (screen, FALSE);
+   priv->exec_data = new_exec_data;
+ 

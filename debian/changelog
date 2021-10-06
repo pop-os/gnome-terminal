@@ -1,3 +1,11 @@
+gnome-terminal (3.38.1-1ubuntu2) UNRELEASED; urgency=medium
+
+  * Fix environment variables on opening new tab via the "Open in
+    Terminal" right click menu in Nautilus. (LP: #1922839)
+    - d/p/screen-Use-clean-env-when-creating-new-tab.patch
+
+ -- Matthew Ruffell <matthew.ruffell@canonical.com>  Tue, 13 Apr 2021 13:44:53 +1200
+
 gnome-terminal (3.38.1-1ubuntu1) hirsute; urgency=medium
 
   * Merge with debian, remaining changes:
