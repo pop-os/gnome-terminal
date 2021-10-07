@@ -1,3 +1,9 @@
+gnome-terminal (3.38.1-1ubuntu2pop0) impish; urgency=medium
+
+  * Pop!_OS patches
+
+ -- Jeremy Soller <jeremy@system76.com>  Thu, 07 Oct 2021 12:27:41 -0600
+
 gnome-terminal (3.38.1-1ubuntu2) impish; urgency=medium
 
   * Fix environment variables on opening new tab via the "Open in
