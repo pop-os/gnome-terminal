@@ -1,6 +1,7 @@
 debian/gnome-terminal.wrapper /usr/bin
 usr/bin
 usr/lib/systemd/user
+usr/lib/*/gnome-terminal/gschemas.compiled
 usr/libexec
 usr/share/applications
 usr/share/dbus-1/services
@@ -8,4 +9,4 @@ usr/share/glib-2.0/schemas
 usr/share/gnome-shell/search-providers/gnome-terminal-search-provider.ini
 usr/share/icons
 usr/share/man/man1
-usr/share/metainfo/org.gnome.Terminal.appdata.xml
+usr/share/metainfo/org.gnome.Terminal.metainfo.xml

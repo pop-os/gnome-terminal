@@ -1,3 +1,57 @@
+gnome-terminal (3.42.0-1) unstable; urgency=medium
+
+  * New upstream release
+  * Build with meson
+  * Refresh patches
+  * debian/gnome-terminal.install: AppStream metadata file was renamed
+  * debian/gnome-terminal.docs: NEWS is no longer provided
+  * Bump debhelper-compat to 13
+  * Bump Standards-Version to 4.6.0
+
+ -- Jeremy Bicha <jbicha@debian.org>  Sat, 25 Sep 2021 21:52:04 -0400
+
+gnome-terminal (3.40.3-1) unstable; urgency=medium
+
+  * New upstream release
+  * Drop 3 patches applied in new release
+  * debian/control.in: Bump minimum vte to 0.64
+  * debian/gnome-terminal.install: Install reference compiled gsettings
+  * debian/rules: Drop unneeded -Wl,--as-needed
+
+ -- Jeremy Bicha <jbicha@debian.org>  Sat, 21 Aug 2021 08:27:17 -0400
+
+gnome-terminal (3.38.3-1) unstable; urgency=medium
+
+  * Team upload
+  * New upstream release
+    - Limit the number of clipboard targets to 255
+    - Update Norwegian Bokmål translation
+  * d/gbp.conf: Use upstream/3.38.x branch for upstream source code.
+    3.39.x releases have already happened.
+
+ -- Simon McVittie <smcv@debian.org>  Wed, 17 Feb 2021 23:08:58 +0000
+
+gnome-terminal (3.38.2-1) unstable; urgency=medium
+
+  * Team upload
+  * New upstream release
+  * Refresh patch series
+  * d/patches: Replace patches for #973918 with upstreamed version
+  * Standards-Version: 4.5.1 (no changes required)
+
+ -- Simon McVittie <smcv@debian.org>  Wed, 27 Jan 2021 21:53:00 +0000
+
+gnome-terminal (3.38.1-2) unstable; urgency=medium
+
+  * Team upload
+  * Add proposed patches to fix environment variable handling.
+    When launching a new terminal from the Nautilus extension, environment
+    variables were handled correctly; but when subsequently opening a new
+    tab in that same terminal, most of the environment variables were lost.
+    Thanks to Jan Alexander Steffens (Closes: #973918)
+
+ -- Simon McVittie <smcv@debian.org>  Mon, 09 Nov 2020 11:17:47 +0000
+
 gnome-terminal (3.38.1-1ubuntu2) impish; urgency=medium
 
   * Fix environment variables on opening new tab via the "Open in
