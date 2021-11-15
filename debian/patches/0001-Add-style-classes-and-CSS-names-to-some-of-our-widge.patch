@@ -7,13 +7,11 @@ Subject: [PATCH] Add style classes and CSS names to some of our widgets
  src/terminal-screen.c   | 7 +++++++
  2 files changed, 13 insertions(+)
 
-diff --git a/src/terminal-notebook.c b/src/terminal-notebook.c
-index 356a389..5f5670f 100644
---- a/src/terminal-notebook.c
-+++ b/src/terminal-notebook.c
+--- a/src/terminal-notebook.cc
++++ b/src/terminal-notebook.cc
 @@ -32,6 +32,8 @@
- #include "terminal-schemas.h"
- #include "terminal-libgsystem.h"
+ #include "terminal-schemas.hh"
+ #include "terminal-libgsystem.hh"
  
 +#define TERMINAL_NOTEBOOK_STYLE_CLASS "terminal-notebook"
 +
@@ -28,7 +26,7 @@ index 356a389..5f5670f 100644
  
    priv = notebook->priv = TERMINAL_NOTEBOOK_GET_PRIVATE (notebook);
  
-   priv->active_screen = NULL;
+   priv->active_screen = nullptr;
    priv->policy = GTK_POLICY_AUTOMATIC;
 +
 +  context = gtk_widget_get_style_context (GTK_WIDGET (notebook));
@@ -36,11 +34,9 @@ index 356a389..5f5670f 100644
  }
  
  static void
-diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index 1280874..277e503 100644
---- a/src/terminal-screen.c
-+++ b/src/terminal-screen.c
-@@ -134,6 +134,8 @@ enum
+--- a/src/terminal-screen.cc
++++ b/src/terminal-screen.cc
+@@ -135,6 +135,8 @@ enum
    TARGET_TAB
  };
  
@@ -49,7 +45,7 @@ index 1280874..277e503 100644
  static void terminal_screen_constructed (GObject             *object);
  static void terminal_screen_dispose     (GObject             *object);
  static void terminal_screen_finalize    (GObject             *object);
-@@ -553,9 +555,14 @@ terminal_screen_init (TerminalScreen *screen)
+@@ -557,9 +559,14 @@ terminal_screen_init (TerminalScreen *sc
    guint i;
    uuid_t u;
    char uuidstr[37];

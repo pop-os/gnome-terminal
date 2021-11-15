@@ -35,8 +35,6 @@ https://bugzilla.gnome.org/show_bug.cgi?id=730016
  src/terminal-window.c              |  28 +++++++++
  6 files changed, 227 insertions(+), 1 deletion(-)
 
-diff --git a/src/org.gnome.Terminal.gschema.xml b/src/org.gnome.Terminal.gschema.xml
-index be00aa2..a7a2025 100644
 --- a/src/org.gnome.Terminal.gschema.xml
 +++ b/src/org.gnome.Terminal.gschema.xml
 @@ -349,6 +349,20 @@
@@ -60,8 +58,6 @@ index be00aa2..a7a2025 100644
    </schema>
  
    <!-- Keybinding settings -->
-diff --git a/src/preferences.ui b/src/preferences.ui
-index d1aca7b..c01f16b 100644
 --- a/src/preferences.ui
 +++ b/src/preferences.ui
 @@ -113,6 +113,11 @@
@@ -199,41 +195,35 @@ index d1aca7b..c01f16b 100644
                                        </object>
                                      </child>
                                    </object>
-diff --git a/src/profile-editor.c b/src/profile-editor.c
-index 4098f90..0e333d1 100644
---- a/src/profile-editor.c
-+++ b/src/profile-editor.c
-@@ -1431,6 +1431,25 @@ profile_prefs_load (const char *uuid, GSettings *profile)
-   profile_prefs_settings_bind (profile, TERMINAL_PROFILE_ENABLE_SIXEL_KEY, w,
-                                "active", G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
+--- a/src/profile-editor.cc
++++ b/src/profile-editor.cc
+@@ -1492,6 +1492,23 @@ profile_prefs_load (const char *uuid, GS
+ 			       GSettingsBindFlags(G_SETTINGS_BIND_GET |
+ 						  G_SETTINGS_BIND_SET));
    gtk_widget_set_visible (w, (vte_get_feature_flags() & VTE_FEATURE_FLAG_SIXEL) != 0);
 +
 +  profile_prefs_settings_bind (profile, TERMINAL_PROFILE_USE_TRANSPARENT_BACKGROUND,
 +                               gtk_builder_get_object (builder, "use-transparent-background"),
-+                               "active", G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
++                               "active", GSettingsBindFlags(G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET));
 +  profile_prefs_settings_bind (profile, TERMINAL_PROFILE_USE_TRANSPARENT_BACKGROUND,
 +                               gtk_builder_get_object (builder, "background-transparent-scale-box"),
-+                               "sensitive", G_SETTINGS_BIND_GET | G_SETTINGS_BIND_NO_SENSITIVITY);
++                               "sensitive", GSettingsBindFlags(G_SETTINGS_BIND_GET | G_SETTINGS_BIND_NO_SENSITIVITY));
 +  profile_prefs_settings_bind (profile, TERMINAL_PROFILE_BACKGROUND_TRANSPARENCY_PERCENT,
 +                               gtk_builder_get_object (builder, "background-transparent-adjustment"),
-+                               "value", G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
++                               "value", GSettingsBindFlags(G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET));
 +  profile_prefs_settings_bind (profile, TERMINAL_PROFILE_USE_THEME_TRANSPARENCY,
 +                               gtk_builder_get_object (builder, "use-theme-transparency-checkbutton"),
-+                               "active", G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
++                               "active", GSettingsBindFlags(G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET));
 +  profile_prefs_settings_bind (profile, TERMINAL_PROFILE_USE_THEME_TRANSPARENCY,
 +                               gtk_builder_get_object (builder, "use-transparent-background-box"),
 +                               "sensitive",
-+                               G_SETTINGS_BIND_GET |
-+                               G_SETTINGS_BIND_INVERT_BOOLEAN |
-+                               G_SETTINGS_BIND_NO_SENSITIVITY);
++                               GSettingsBindFlags(G_SETTINGS_BIND_GET | G_SETTINGS_BIND_INVERT_BOOLEAN | G_SETTINGS_BIND_NO_SENSITIVITY));
  }
  
  /* Called once per Preferences window, to destroy stuff that doesn't depend on the profile being edited */
-diff --git a/src/terminal-schemas.h b/src/terminal-schemas.h
-index cffc4ed..2b6726b 100644
---- a/src/terminal-schemas.h
-+++ b/src/terminal-schemas.h
-@@ -76,6 +76,10 @@ G_BEGIN_DECLS
+--- a/src/terminal-schemas.hh
++++ b/src/terminal-schemas.hh
+@@ -78,6 +78,10 @@ G_BEGIN_DECLS
  #define TERMINAL_PROFILE_VISIBLE_NAME_KEY               "visible-name"
  #define TERMINAL_PROFILE_WORD_CHAR_EXCEPTIONS_KEY       "word-char-exceptions"
  
@@ -242,25 +232,26 @@ index cffc4ed..2b6726b 100644
 +#define TERMINAL_PROFILE_BACKGROUND_TRANSPARENCY_PERCENT "background-transparency-percent"
 +
  #define TERMINAL_SETTING_CONFIRM_CLOSE_KEY              "confirm-close"
+ #define TERMINAL_SETTING_CONTEXT_INFO_KEY               "context-info"
  #define TERMINAL_SETTING_DEFAULT_SHOW_MENUBAR_KEY       "default-show-menubar"
- #define TERMINAL_SETTING_ENABLE_MENU_BAR_ACCEL_KEY      "menu-accelerator-enabled"
-diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index 1dcda84..1280874 100644
---- a/src/terminal-screen.c
-+++ b/src/terminal-screen.c
-@@ -735,6 +735,11 @@ terminal_screen_class_init (TerminalScreenClass *klass)
+--- a/src/terminal-screen.cc
++++ b/src/terminal-screen.cc
+@@ -745,6 +745,14 @@ terminal_screen_class_init (TerminalScre
  
    g_type_class_add_private (object_class, sizeof (TerminalScreenPrivate));
  
 +  gtk_widget_class_install_style_property (widget_class,
 +     g_param_spec_float ("background-darkness", NULL, NULL, -1, 1, -1,
-+                         G_PARAM_READABLE | G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB));
++                         GParamFlags(G_PARAM_READABLE |
++				     G_PARAM_STATIC_NAME |
++				     G_PARAM_STATIC_NICK |
++				     G_PARAM_STATIC_BLURB)));
 +
 +
    n_url_regexes = G_N_ELEMENTS (url_regex_patterns);
    precompile_regexes (url_regex_patterns, n_url_regexes, &url_regexes, &url_regex_flavors);
    n_extra_regexes = G_N_ELEMENTS (extra_regex_patterns);
-@@ -1129,7 +1134,10 @@ terminal_screen_profile_changed_cb (GSettings     *profile,
+@@ -1139,7 +1147,10 @@ terminal_screen_profile_changed_cb (GSet
        prop_name == I_(TERMINAL_PROFILE_HIGHLIGHT_COLORS_SET_KEY) ||
        prop_name == I_(TERMINAL_PROFILE_HIGHLIGHT_BACKGROUND_COLOR_KEY) ||
        prop_name == I_(TERMINAL_PROFILE_HIGHLIGHT_FOREGROUND_COLOR_KEY) ||
@@ -272,8 +263,8 @@ index 1dcda84..1280874 100644
      update_color_scheme (screen);
  
    if (!prop_name || prop_name == I_(TERMINAL_PROFILE_AUDIBLE_BELL_KEY))
-@@ -1215,6 +1223,9 @@ update_color_scheme (TerminalScreen *screen)
-   GdkRGBA *highlight_bgp = NULL, *highlight_fgp = NULL;
+@@ -1225,6 +1236,9 @@ update_color_scheme (TerminalScreen *scr
+   GdkRGBA *highlight_bgp = nullptr, *highlight_fgp = nullptr;
    GtkStyleContext *context;
    gboolean use_theme_colors;
 +  GtkWidget *toplevel;
@@ -282,7 +273,7 @@ index 1dcda84..1280874 100644
  
    context = gtk_widget_get_style_context (widget);
    gtk_style_context_get_color (context, gtk_style_context_get_state (context), &theme_fg);
-@@ -1257,6 +1268,31 @@ update_color_scheme (TerminalScreen *screen)
+@@ -1267,6 +1281,31 @@ update_color_scheme (TerminalScreen *scr
      }
  
    colors = terminal_g_settings_get_rgba_palette (priv->profile, TERMINAL_PROFILE_PALETTE_KEY, &n_colors);
@@ -314,7 +305,7 @@ index 1dcda84..1280874 100644
    vte_terminal_set_colors (VTE_TERMINAL (screen), &fg, &bg,
                             colors, n_colors);
    vte_terminal_set_color_bold (VTE_TERMINAL (screen), boldp);
-@@ -1264,6 +1300,10 @@ update_color_scheme (TerminalScreen *screen)
+@@ -1274,6 +1313,10 @@ update_color_scheme (TerminalScreen *scr
    vte_terminal_set_color_cursor_foreground (VTE_TERMINAL (screen), cursor_fgp);
    vte_terminal_set_color_highlight (VTE_TERMINAL (screen), highlight_bgp);
    vte_terminal_set_color_highlight_foreground (VTE_TERMINAL (screen), highlight_fgp);
@@ -325,15 +316,12 @@ index 1dcda84..1280874 100644
  }
  
  static void
-diff --git a/src/terminal-window.c b/src/terminal-window.c
-index 7a8953c..36d155a 100644
---- a/src/terminal-window.c
-+++ b/src/terminal-window.c
-@@ -1953,6 +1953,26 @@ terminal_window_realize (GtkWidget *widget)
-   terminal_window_update_size (window);
+--- a/src/terminal-window.cc
++++ b/src/terminal-window.cc
+@@ -1979,6 +1979,26 @@ terminal_window_realize (GtkWidget *widg
  }
  
-+static gboolean
+ static gboolean
 +terminal_window_draw (GtkWidget *widget,
 +                      cairo_t   *cr)
 +{
@@ -353,10 +341,11 @@ index 7a8953c..36d155a 100644
 +  return GTK_WIDGET_CLASS (terminal_window_parent_class)->draw (widget, cr);
 +}
 +
- static gboolean
++static gboolean
  terminal_window_state_event (GtkWidget            *widget,
                               GdkEventWindowState  *event)
-@@ -2094,6 +2114,8 @@ terminal_window_init (TerminalWindow *window)
+ {
+@@ -2119,6 +2139,8 @@ terminal_window_init (TerminalWindow *wi
    };
    TerminalWindowPrivate *priv;
    TerminalApp *app;
@@ -365,7 +354,7 @@ index 7a8953c..36d155a 100644
    GSettings *gtk_debug_settings;
    GtkWindowGroup *window_group;
    //  GtkAccelGroup *accel_group;
-@@ -2109,6 +2131,11 @@ terminal_window_init (TerminalWindow *window)
+@@ -2134,6 +2156,11 @@ terminal_window_init (TerminalWindow *wi
  
    gtk_widget_init_template (GTK_WIDGET (window));
  
@@ -377,7 +366,7 @@ index 7a8953c..36d155a 100644
    uuid_generate (u);
    uuid_unparse (u, uuidstr);
    priv->uuid = g_strdup (uuidstr);
-@@ -2263,6 +2290,7 @@ terminal_window_class_init (TerminalWindowClass *klass)
+@@ -2289,6 +2316,7 @@ terminal_window_class_init (TerminalWind
  
    widget_class->show = terminal_window_show;
    widget_class->realize = terminal_window_realize;

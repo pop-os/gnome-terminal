@@ -8,14 +8,12 @@ Origin: backport, https://gitlab.gnome.org/GNOME/gnome-terminal/-/commit/fd5ac77
 Bug-Ubuntu: https://bugs.launchpad.net/bugs/1922839
 Last-Update: 2021-04-13
 ---
- src/terminal-screen.c | 11 ++++-------
+ src/terminal-screen.cc | 11 ++++-------
  1 file changed, 4 insertions(+), 7 deletions(-)
 
-Index: gnome-terminal-3.38.1/src/terminal-screen.c
-===================================================================
---- gnome-terminal-3.38.1.orig/src/terminal-screen.c	2021-04-13 13:38:20.258949724 +1200
-+++ gnome-terminal-3.38.1/src/terminal-screen.c	2021-04-13 13:38:20.258949724 +1200
-@@ -273,8 +273,7 @@
+--- a/src/terminal-screen.cc
++++ b/src/terminal-screen.cc
+@@ -275,8 +275,7 @@ exec_data_new (void)
  }
  
  static ExecData *
@@ -23,19 +21,19 @@ Index: gnome-terminal-3.38.1/src/terminal-screen.c
 -                 gboolean preserve_argv)
 +exec_data_clone (ExecData *data)
  {
-   if (data == NULL)
-     return NULL;
-@@ -284,8 +283,7 @@
+   if (data == nullptr)
+     return nullptr;
+@@ -286,8 +285,7 @@ exec_data_clone (ExecData *data,
    clone->cwd = g_strdup (data->cwd);
  
    /* If FDs were passed, cannot repeat argv. Return data only for env and cwd */
 -  if (!preserve_argv ||
--      data->fd_list != NULL) {
-+  if (data->fd_list != NULL) {
+-      data->fd_list != nullptr) {
++  if (data->fd_list != nullptr) {
      clone->as_shell = TRUE;
      return clone;
    }
-@@ -947,7 +945,6 @@
+@@ -964,7 +962,6 @@ terminal_screen_reexec_from_screen (Term
  
    g_return_val_if_fail (TERMINAL_IS_SCREEN (parent_screen), FALSE);
  
@@ -43,16 +41,16 @@ Index: gnome-terminal-3.38.1/src/terminal-screen.c
    gs_free char* cwd = terminal_screen_get_current_dir (parent_screen);
  
    _terminal_debug_print (TERMINAL_DEBUG_PROCESSES,
-@@ -957,7 +954,7 @@
+@@ -974,7 +971,7 @@ terminal_screen_reexec_from_screen (Term
                           cwd);
  
    return terminal_screen_reexec_from_exec_data (screen,
 -                                                data,
-+                                                NULL /* exec data */,
-                                                 NULL /* envv */,
++                                                nullptr /* exec data */,
+                                                 nullptr /* envv */,
                                                  cwd,
                                                  cancellable,
-@@ -1767,7 +1764,7 @@
+@@ -1780,7 +1777,7 @@ spawn_result_cb (VteTerminal *terminal,
    }
  
    /* Retain info for reexec, if possible */
@@ -60,4 +58,4 @@ Index: gnome-terminal-3.38.1/src/terminal-screen.c
 +  ExecData *new_exec_data = exec_data_clone (exec_data);
    terminal_screen_clear_exec_data (screen, FALSE);
    priv->exec_data = new_exec_data;
- 
+   }

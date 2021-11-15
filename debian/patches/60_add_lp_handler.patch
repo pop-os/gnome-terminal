@@ -5,18 +5,16 @@ Subject: add a handler for launchpad bug URLs.
 Forwarded: yes, https://bugzilla.gnome.org/show_bug.cgi?id=709087
 Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gnome-terminal/+bug/1232589
 ---
- src/terminal-regex.h  |  1 +
- src/terminal-screen.c |  1 +
- src/terminal-screen.h |  1 +
- src/terminal-util.c   | 17 +++++++++++++++++
- src/terminal-util.h   |  2 ++
- src/terminal-window.c | 13 ++++++++++++-
+ src/terminal-regex.hh  |  1 +
+ src/terminal-screen.cc |  1 +
+ src/terminal-screen.hh |  1 +
+ src/terminal-util.cc   | 17 +++++++++++++++++
+ src/terminal-util.hh   |  2 ++
+ src/terminal-window.cc | 13 ++++++++++++-
  6 files changed, 34 insertions(+), 1 deletion(-)
 
-diff --git a/src/terminal-regex.h b/src/terminal-regex.h
-index 4e8acb3..5d90039 100644
---- a/src/terminal-regex.h
-+++ b/src/terminal-regex.h
+--- a/src/terminal-regex.hh
++++ b/src/terminal-regex.hh
 @@ -158,5 +158,6 @@
  #define REGEX_URL_VOIP   DEFS "(?i:h323:|sips?:)" USERPASS URL_HOST PORT VOIP_PATH
  #define REGEX_EMAIL      DEFS "(?i:mailto:)?" USER "@" EMAIL_HOST
@@ -24,11 +22,9 @@ index 4e8acb3..5d90039 100644
 +#define REGEX_LP         "(?i:lp: #)[[:digit:]]+"
  
  #endif /* !TERMINAL_REGEX_H */
-diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index d3c0cf0..ac9cc71 100644
---- a/src/terminal-screen.c
-+++ b/src/terminal-screen.c
-@@ -208,6 +208,7 @@ static const TerminalRegexPattern url_regex_patterns[] = {
+--- a/src/terminal-screen.cc
++++ b/src/terminal-screen.cc
+@@ -210,6 +210,7 @@ static const TerminalRegexPattern url_re
    { REGEX_URL_VOIP,  FLAVOR_VOIP_CALL },
    { REGEX_EMAIL,     FLAVOR_EMAIL },
    { REGEX_NEWS_MAN,  FLAVOR_AS_IS },
@@ -36,10 +32,8 @@ index d3c0cf0..ac9cc71 100644
  };
  
  static const TerminalRegexPattern extra_regex_patterns[] = {
-diff --git a/src/terminal-screen.h b/src/terminal-screen.h
-index 8ea3378..695aeeb 100644
---- a/src/terminal-screen.h
-+++ b/src/terminal-screen.h
+--- a/src/terminal-screen.hh
++++ b/src/terminal-screen.hh
 @@ -32,6 +32,7 @@ typedef enum {
    FLAVOR_VOIP_CALL,
    FLAVOR_EMAIL,
@@ -48,11 +42,9 @@ index 8ea3378..695aeeb 100644
  } TerminalURLFlavor;
  
  /* Forward decls */
-diff --git a/src/terminal-util.c b/src/terminal-util.c
-index 3155e3f..c746a20 100644
---- a/src/terminal-util.c
-+++ b/src/terminal-util.c
-@@ -310,6 +310,9 @@ terminal_util_open_url (GtkWidget *parent,
+--- a/src/terminal-util.cc
++++ b/src/terminal-util.cc
+@@ -321,6 +321,9 @@ terminal_util_open_url (GtkWidget *paren
      case FLAVOR_AS_IS:
        uri = g_strdup (orig_url);
        break;
@@ -60,9 +52,9 @@ index 3155e3f..c746a20 100644
 +      uri = terminal_util_get_lp_url (orig_url);
 +      break;
      default:
-       uri = NULL;
+       uri = nullptr;
        g_assert_not_reached ();
-@@ -323,6 +326,20 @@ terminal_util_open_url (GtkWidget *parent,
+@@ -334,6 +337,20 @@ terminal_util_open_url (GtkWidget *paren
      }
  }
  
@@ -83,11 +75,9 @@ index 3155e3f..c746a20 100644
  /**
   * terminal_util_transform_uris_to_quoted_fuse_paths:
   * @uris:
-diff --git a/src/terminal-util.h b/src/terminal-util.h
-index 0f3e6bf..ec09f4d 100644
---- a/src/terminal-util.h
-+++ b/src/terminal-util.h
-@@ -44,6 +44,8 @@ void terminal_util_open_url (GtkWidget *parent,
+--- a/src/terminal-util.hh
++++ b/src/terminal-util.hh
+@@ -44,6 +44,8 @@ void terminal_util_open_url (GtkWidget *
                               TerminalURLFlavor flavor,
                               guint32 user_time);
  
@@ -96,12 +86,10 @@ index 0f3e6bf..ec09f4d 100644
  void terminal_util_transform_uris_to_quoted_fuse_paths (char **uris);
  
  char *terminal_util_concat_uris (char **uris,
-diff --git a/src/terminal-window.c b/src/terminal-window.c
-index c0219d8..3c19e3d 100644
---- a/src/terminal-window.c
-+++ b/src/terminal-window.c
-@@ -1019,7 +1019,17 @@ action_copy_match_cb (GSimpleAction *action,
-   if (info->url == NULL)
+--- a/src/terminal-window.cc
++++ b/src/terminal-window.cc
+@@ -1023,7 +1023,17 @@ action_copy_match_cb (GSimpleAction *act
+   if (info->url == nullptr)
      return;
  
 -  gtk_clipboard_set_text (priv->clipboard, info->url, -1);
@@ -119,7 +107,7 @@ index c0219d8..3c19e3d 100644
  }
  
  static void
-@@ -1715,6 +1725,7 @@ screen_show_popup_menu_cb (TerminalScreen *screen,
+@@ -1722,6 +1732,7 @@ screen_show_popup_menu_cb (TerminalScree
        break;
      case FLAVOR_AS_IS:
      case FLAVOR_DEFAULT_TO_HTTP:
