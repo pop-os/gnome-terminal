@@ -1,3 +1,21 @@
+commit bda3c4bd394cb70b336ef6359e6760bb006c825b
+Author: Marek Černocký <marek@manet.cz>
+Date:   Fri Sep 24 15:06:52 2021 +0200
+
+    Updated Czech translation
+
+ po/cs.po | 120 ++++++++++++---------------------------------------------------
+ 1 file changed, 23 insertions(+), 97 deletions(-)
+
+commit 4f07bfda03bc7a879b97f02e21939212115d51c4
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Wed Sep 22 18:39:20 2021 +0200
+
+    build: Post release version bump
+
+ meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
 commit 4fb4b39d7281016ec676f1a7d8f7bd4da424d68c
 Author: Christian Persch <chpe@src.gnome.org>
 Date:   Wed Sep 22 18:37:55 2021 +0200
