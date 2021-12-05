@@ -1,8 +1,8 @@
-gnome-terminal (3.42.2-1) UNRELEASED; urgency=medium
+gnome-terminal (3.42.2-1) unstable; urgency=medium
 
   * New upstream release
 
- -- Jeremy Bicha <jbicha@debian.org>  Sun, 05 Dec 2021 08:56:39 -0500
+ -- Jeremy Bicha <jbicha@debian.org>  Sun, 05 Dec 2021 08:58:09 -0500
 
 gnome-terminal (3.42.1-1) unstable; urgency=medium
 
