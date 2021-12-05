@@ -1,3 +1,30 @@
+commit f300eed28e6755458ebaaecd9a8fe5f6b4ca29cd
+Author: Quentin PAGÈS <pages_quentin@hotmail.com>
+Date:   Sun Nov 28 13:14:17 2021 +0000
+
+    Update Occitan translation
+
+ po/oc.po | 168 ++++++++++++++++++++++++++++-----------------------------------
+ 1 file changed, 74 insertions(+), 94 deletions(-)
+
+commit 3cd6019190cb90b9c46e67b2dfd8c8db67ef40cf
+Author: Boyuan Yang <073plan@gmail.com>
+Date:   Sun Nov 14 16:21:39 2021 +0000
+
+    Update Chinese (China) translation
+
+ po/zh_CN.po | 174 +++++++++++++++++++++++++++---------------------------------
+ 1 file changed, 77 insertions(+), 97 deletions(-)
+
+commit 32fa17eaf649d23164e3d4582b2b8130bb87de46
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Sat Oct 30 20:30:54 2021 +0200
+
+    build: Post release version bump
+
+ meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
 commit bda3c4bd394cb70b336ef6359e6760bb006c825b
 Author: Marek Černocký <marek@manet.cz>
 Date:   Fri Sep 24 15:06:52 2021 +0200
