@@ -1,4 +1,4 @@
-gnome-terminal (3.43.90-1ubuntu1) UNRELEASED; urgency=medium
+gnome-terminal (3.43.90-1ubuntu1) jammy; urgency=medium
 
   * Merge with debian, remaining changes:
     + gnome-terminal.wrap, debian/rules:
@@ -25,8 +25,9 @@ gnome-terminal (3.43.90-1ubuntu1) UNRELEASED; urgency=medium
     + Add screen-Use-clean-env-when-creating-new-tab.patch:
       - Fix environment variables on opening new tab via the "Open in
         Terminal" right click menu in Nautilus. (LP: #1922839)
+  * Refresh patches
 
- -- Jeremy Bicha <jeremy.bicha@canonical.com>  Thu, 03 Feb 2022 13:01:30 -0500
+ -- Jeremy Bicha <jeremy.bicha@canonical.com>  Mon, 14 Feb 2022 13:04:33 -0500
 
 gnome-terminal (3.43.90-1) unstable; urgency=medium
 
