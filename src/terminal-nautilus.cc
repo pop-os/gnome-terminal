@@ -18,6 +18,8 @@
  */
 
 #include "config.h"
+#undef GDK_VERSION_MIN_REQUIRED
+#undef GDK_VERSION_MAX_ALLOWED
 
 #include <glib.h>
 #include <glib/gi18n-lib.h>
@@ -439,8 +441,7 @@ terminal_nautilus_menu_item_activate (NautilusMenuItem *item)
       if (menu_item->remote_terminal)
         break;
 
-      /* fall through */
-
+      [[fallthrough]];
     case FILE_INFO_OTHER: {
       GFile *file;
 
@@ -462,7 +463,11 @@ terminal_nautilus_menu_item_activate (NautilusMenuItem *item)
 
   data = g_new (ExecData, 1);
   data->nautilus = (TerminalNautilus*)g_object_ref (nautilus);
+#if GTK_CHECK_VERSION (4, 0, 0)
+  data->timestamp = GDK_CURRENT_TIME; /* FIXMEgtk4 */
+#else
   data->timestamp = gtk_get_current_event_time ();
+#endif
   data->path = path;
   data->uri = uri;
   data->info = info;

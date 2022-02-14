@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-terminal master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-terminal/issues\n"
-"POT-Creation-Date: 2021-10-30 18:31+0000\n"
-"PO-Revision-Date: 2021-11-14 11:21-0500\n"
+"POT-Creation-Date: 2021-10-21 16:14+0000\n"
+"PO-Revision-Date: 2021-11-14 11:19-0500\n"
 "Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -37,14 +37,32 @@ msgstr ""
 "X-Generator: Poedit 2.4.3\n"
 
 #: data/org.gnome.Terminal.Nautilus.metainfo.xml.in:35
+msgid "org.gnome.Terminal.Nautilus"
+msgstr "org.gnome.Terminal.Nautilus"
+
+#: data/org.gnome.Terminal.Nautilus.metainfo.xml.in:36
+msgid "org.gnome.Nautilus.desktop"
+msgstr "org.gnome.Nautilus.desktop"
+
+#: data/org.gnome.Terminal.Nautilus.metainfo.xml.in:37
+#: data/org.gnome.Terminal.metainfo.xml.in:36
+msgid "GPL-3.0+ or GFDL-1.3-only"
+msgstr "GPL-3.0+ or GFDL-1.3-only"
+
+#: data/org.gnome.Terminal.Nautilus.metainfo.xml.in:38
+#: data/org.gnome.Terminal.metainfo.xml.in:37
+msgid "GPL-3.0+"
+msgstr "GPL-3.0+"
+
+#: data/org.gnome.Terminal.Nautilus.metainfo.xml.in:39
 msgid "Terminal plugin for Files"
 msgstr "用于文件管理器的终端插件"
 
-#: data/org.gnome.Terminal.Nautilus.metainfo.xml.in:36
+#: data/org.gnome.Terminal.Nautilus.metainfo.xml.in:40
 msgid "Open a terminal from Files"
 msgstr "从文件管理器打开终端"
 
-#: data/org.gnome.Terminal.Nautilus.metainfo.xml.in:38
+#: data/org.gnome.Terminal.Nautilus.metainfo.xml.in:42
 msgid ""
 "Open Terminal is a plugin for the Files application that adds a menu item to "
 "the context menu to open a terminal in the currently browsed directory."
@@ -52,16 +70,36 @@ msgstr ""
 "“打开终端”是用于文件管理器的插件，这个插件支持通过右键菜单在当前浏览的目录中"
 "打开终端模拟器。"
 
+#: data/org.gnome.Terminal.Nautilus.metainfo.xml.in:44
+#: data/org.gnome.Terminal.metainfo.xml.in:59
+msgid "https://wiki.gnome.org/Apps/Terminal"
+msgstr "https://wiki.gnome.org/Apps/Terminal"
+
+#. This is the name of a colour scheme
+#: data/org.gnome.Terminal.Nautilus.metainfo.xml.in:45
+#: data/org.gnome.Terminal.metainfo.xml.in:60 src/preferences.ui:214
+msgid "GNOME"
+msgstr "GNOME"
+
+#: data/org.gnome.Terminal.Nautilus.metainfo.xml.in:46
+#: data/org.gnome.Terminal.metainfo.xml.in:61
+msgid "https://wiki.gnome.org/Apps/Terminal/ReportingBugs"
+msgstr "https://wiki.gnome.org/Apps/Terminal/ReportingBugs"
+
+#: data/org.gnome.Terminal.Nautilus.metainfo.xml.in:47
+msgid "gnome-terminal"
+msgstr "gnome-terminal"
+
 #: data/org.gnome.Terminal.desktop.in:3
-#: data/org.gnome.Terminal.metainfo.xml.in:34 src/server.cc:150
+#: data/org.gnome.Terminal.metainfo.xml.in:38 src/server.cc:150
 #: src/terminal-accels.cc:232 src/terminal-menubar.ui.in:144
-#: src/terminal-tab-label.cc:81 src/terminal-window.cc:1894
-#: src/terminal-window.cc:2160 src/terminal-window.cc:2443 src/terminal.cc:570
+#: src/terminal-tab-label.cc:81 src/terminal-window.cc:1901
+#: src/terminal-window.cc:2167 src/terminal-window.cc:2450 src/terminal.cc:570
 msgid "Terminal"
 msgstr "终端"
 
 #: data/org.gnome.Terminal.desktop.in:4
-#: data/org.gnome.Terminal.metainfo.xml.in:35
+#: data/org.gnome.Terminal.metainfo.xml.in:39
 msgid "Use the command line"
 msgstr "使用命令行"
 
@@ -81,7 +119,11 @@ msgstr "新建窗口"
 msgid "Preferences"
 msgstr "首选项"
 
-#: data/org.gnome.Terminal.metainfo.xml.in:37
+#: data/org.gnome.Terminal.metainfo.xml.in:35
+msgid "org.gnome.Terminal.desktop"
+msgstr "org.gnome.Terminal.desktop"
+
+#: data/org.gnome.Terminal.metainfo.xml.in:41
 msgid ""
 "GNOME Terminal is a terminal emulator application for accessing a UNIX shell "
 "environment which can be used to run programs available on your system."
@@ -89,11 +131,49 @@ msgstr ""
 "GNOME 终端 是一个访问 UNIX shell 环境的终端模拟器应用，可用来运行您系统上的程"
 "序。"
 
-#: data/org.gnome.Terminal.metainfo.xml.in:38
+#: data/org.gnome.Terminal.metainfo.xml.in:42
 msgid ""
 "It supports several profiles, multiple tabs and implements several keyboard "
 "shortcuts."
 msgstr "它支持多个配置文件，多标签页，支持多个键盘快捷键。"
+
+#: data/org.gnome.Terminal.metainfo.xml.in:45
+msgid "console"
+msgstr "控制台"
+
+#: data/org.gnome.Terminal.metainfo.xml.in:46
+msgid "keyboard"
+msgstr "键盘"
+
+#: data/org.gnome.Terminal.metainfo.xml.in:47
+msgid "pointing"
+msgstr "指针设备"
+
+#: data/org.gnome.Terminal.metainfo.xml.in:50
+msgid ""
+"https://help.gnome.org/users/gnome-terminal/stable/figures/gnome-terminal.png"
+msgstr ""
+"https://help.gnome.org/users/gnome-terminal/stable/figures/gnome-terminal.png"
+
+#: data/org.gnome.Terminal.metainfo.xml.in:53
+msgid "HiDpiIcon"
+msgstr "HiDpiIcon"
+
+#: data/org.gnome.Terminal.metainfo.xml.in:54
+msgid "HighContrast"
+msgstr "HighContrast"
+
+#: data/org.gnome.Terminal.metainfo.xml.in:55
+msgid "ModernToolkit"
+msgstr "ModernToolkit"
+
+#: data/org.gnome.Terminal.metainfo.xml.in:56
+msgid "SearchProvider"
+msgstr "SearchProvider"
+
+#: data/org.gnome.Terminal.metainfo.xml.in:57
+msgid "UserDocs"
+msgstr "UserDocs"
 
 #. Translators: Keep single quote please!
 #: src/org.gnome.Terminal.gschema.xml:133
@@ -843,11 +923,6 @@ msgid "Hold the terminal open"
 msgstr "保持终端打开"
 
 #. This is the name of a colour scheme
-#: src/preferences.ui:214
-msgid "GNOME"
-msgstr "GNOME"
-
-#. This is the name of a colour scheme
 #: src/preferences.ui:217
 msgid "Tango"
 msgstr "Tango"
@@ -1573,16 +1648,16 @@ msgstr "快捷键(_K)"
 msgid "New Terminal"
 msgstr "新建终端"
 
-#: src/terminal-app.cc:518 src/terminal-window.cc:1795
+#: src/terminal-app.cc:518 src/terminal-window.cc:1802
 msgid "New _Terminal"
 msgstr "新建终端(_T)"
 
-#: src/terminal-app.cc:520 src/terminal-window.cc:1804
+#: src/terminal-app.cc:520 src/terminal-window.cc:1811
 msgid "New _Tab"
 msgstr "新建标签页(_T)"
 
 #: src/terminal-app.cc:521 src/terminal-headermenu.ui:39
-#: src/terminal-window.cc:1800
+#: src/terminal-window.cc:1807
 msgid "New _Window"
 msgstr "新建窗口(_W)"
 
@@ -1607,7 +1682,7 @@ msgid "_Full Screen"
 msgstr "全屏(_F)"
 
 #: src/terminal-headermenu.ui:50 src/terminal-menubar.ui.in:155
-#: src/terminal-window.cc:1776
+#: src/terminal-window.cc:1783
 msgid "Read-_Only"
 msgstr "只读(_O)"
 
@@ -1648,8 +1723,8 @@ msgstr "_4. 132×43"
 msgid "_Inspector"
 msgstr "检查器(_I)"
 
-#: src/terminal-headermenu.ui:106 src/terminal-screen.cc:1543
-#: src/terminal-window.cc:1788
+#: src/terminal-headermenu.ui:106 src/terminal-screen.cc:1513
+#: src/terminal-window.cc:1795
 msgid "_Preferences"
 msgstr "配置文件首选项(_P)"
 
@@ -1689,19 +1764,19 @@ msgstr "关闭窗口(_C)"
 msgid "_Edit"
 msgstr "编辑(_E)"
 
-#: src/terminal-menubar.ui.in:59 src/terminal-window.cc:1766
+#: src/terminal-menubar.ui.in:59 src/terminal-window.cc:1773
 msgid "_Copy"
 msgstr "复制(_C)"
 
-#: src/terminal-menubar.ui.in:64 src/terminal-window.cc:1767
+#: src/terminal-menubar.ui.in:64 src/terminal-window.cc:1774
 msgid "Copy as _HTML"
 msgstr "复制为 HTML(_H)"
 
-#: src/terminal-menubar.ui.in:69 src/terminal-window.cc:1768
+#: src/terminal-menubar.ui.in:69 src/terminal-window.cc:1775
 msgid "_Paste"
 msgstr "粘贴(_P)"
 
-#: src/terminal-menubar.ui.in:73 src/terminal-window.cc:1770
+#: src/terminal-menubar.ui.in:73 src/terminal-window.cc:1777
 msgid "Paste as _Filenames"
 msgstr "粘贴文件名(_F)"
 
@@ -1717,7 +1792,7 @@ msgstr "首选项(_R)"
 msgid "_View"
 msgstr "查看(_V)"
 
-#: src/terminal-menubar.ui.in:96 src/terminal-window.cc:1816
+#: src/terminal-menubar.ui.in:96 src/terminal-window.cc:1823
 msgid "Show _Menubar"
 msgstr "显示菜单栏(_M)"
 
@@ -1777,35 +1852,35 @@ msgstr "分离终端(_D)"
 msgid "_Contents"
 msgstr "目录(_C)"
 
-#: src/terminal-nautilus.cc:537
+#: src/terminal-nautilus.cc:536
 msgid "Open in _Remote Terminal"
 msgstr "在远程终端打开(_R)"
 
-#: src/terminal-nautilus.cc:539
+#: src/terminal-nautilus.cc:538
 msgid "Open in _Local Terminal"
 msgstr "在本地终端打开(_L)"
 
-#: src/terminal-nautilus.cc:543 src/terminal-nautilus.cc:554
+#: src/terminal-nautilus.cc:542 src/terminal-nautilus.cc:553
 msgid "Open the currently selected folder in a terminal"
 msgstr "在终端中打开当前选中的文件夹"
 
-#: src/terminal-nautilus.cc:545 src/terminal-nautilus.cc:556
+#: src/terminal-nautilus.cc:544 src/terminal-nautilus.cc:555
 msgid "Open the currently open folder in a terminal"
 msgstr "在终端中打开当前打开的文件夹"
 
-#: src/terminal-nautilus.cc:551
+#: src/terminal-nautilus.cc:550
 msgid "Open in T_erminal"
 msgstr "在终端打开(_E)"
 
-#: src/terminal-nautilus.cc:561
+#: src/terminal-nautilus.cc:560
 msgid "Open T_erminal"
 msgstr "打开终端(_E)"
 
-#: src/terminal-nautilus.cc:562
+#: src/terminal-nautilus.cc:561
 msgid "Open a terminal"
 msgstr "打开终端"
 
-#: src/terminal-notebook-menu.ui:43 src/terminal-window.cc:3253
+#: src/terminal-notebook-menu.ui:43 src/terminal-window.cc:3261
 msgid "C_lose Terminal"
 msgstr "关闭终端(_L)"
 
@@ -2138,29 +2213,29 @@ msgstr "快捷键"
 msgid "Profiles"
 msgstr "配置文件"
 
-#: src/terminal-screen.cc:1428
+#: src/terminal-screen.cc:1398
 msgid "No command supplied nor shell requested"
 msgstr "未提供命令，也未指定 shell"
 
-#: src/terminal-screen.cc:1544 src/terminal-screen.cc:1891
+#: src/terminal-screen.cc:1514 src/terminal-screen.cc:1861
 msgid "_Relaunch"
 msgstr "重新启动(_R)"
 
-#: src/terminal-screen.cc:1547
+#: src/terminal-screen.cc:1517
 msgid "There was an error creating the child process for this terminal"
 msgstr "创建此终端的子进程时出错"
 
-#: src/terminal-screen.cc:1895
+#: src/terminal-screen.cc:1865
 #, c-format
 msgid "The child process exited normally with status %d."
 msgstr "子进程以状态%d正常的退出。"
 
-#: src/terminal-screen.cc:1898
+#: src/terminal-screen.cc:1868
 #, c-format
 msgid "The child process was aborted by signal %d."
 msgstr "子进程被信号%d中断。"
 
-#: src/terminal-screen.cc:1901
+#: src/terminal-screen.cc:1871
 msgid "The child process was aborted."
 msgstr "子进程被中断。"
 
@@ -2250,83 +2325,83 @@ msgstr ""
 msgid "“file” scheme with remote hostname not supported"
 msgstr "不支持包含远程主机名的“文件”方案"
 
-#: src/terminal-window.cc:463
+#: src/terminal-window.cc:473
 msgid "Could not save contents"
 msgstr "无法保存内容"
 
-#: src/terminal-window.cc:483
+#: src/terminal-window.cc:493
 msgid "Save as…"
 msgstr "另存为…"
 
-#: src/terminal-window.cc:486
+#: src/terminal-window.cc:496
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: src/terminal-window.cc:487
+#: src/terminal-window.cc:497
 msgid "_Save"
 msgstr "保存(_S)"
 
-#: src/terminal-window.cc:1705
+#: src/terminal-window.cc:1712
 msgid "Open _Hyperlink"
 msgstr "打开超链接(_H)"
 
-#: src/terminal-window.cc:1706
+#: src/terminal-window.cc:1713
 msgid "Copy Hyperlink _Address"
 msgstr "复制超链接地址(_A)"
 
-#: src/terminal-window.cc:1716
+#: src/terminal-window.cc:1723
 msgid "Send Mail _To…"
 msgstr "发送邮件给(_T)…"
 
-#: src/terminal-window.cc:1717
+#: src/terminal-window.cc:1724
 msgid "Copy Mail _Address"
 msgstr "复制电子邮件地址(_A)"
 
-#: src/terminal-window.cc:1720
+#: src/terminal-window.cc:1727
 msgid "Call _To…"
 msgstr "呼叫(_T)…"
 
-#: src/terminal-window.cc:1721
+#: src/terminal-window.cc:1728
 msgid "Copy Call _Address "
 msgstr "复制呼叫地址(_A)"
 
-#: src/terminal-window.cc:1726
+#: src/terminal-window.cc:1733
 msgid "_Open Link"
 msgstr "打开链接(_O)"
 
-#: src/terminal-window.cc:1727
+#: src/terminal-window.cc:1734
 msgid "Copy _Link"
 msgstr "复制链接(_L)"
 
-#: src/terminal-window.cc:1783
+#: src/terminal-window.cc:1790
 msgid "P_rofiles"
 msgstr "配置文件(_R)"
 
-#: src/terminal-window.cc:1818
+#: src/terminal-window.cc:1825
 msgid "L_eave Full Screen"
 msgstr "退出全屏(_E)"
 
-#: src/terminal-window.cc:3240
+#: src/terminal-window.cc:3248
 msgid "Close this window?"
 msgstr "关闭这个窗口？"
 
-#: src/terminal-window.cc:3240
+#: src/terminal-window.cc:3248
 msgid "Close this terminal?"
 msgstr "关闭此终端？"
 
-#: src/terminal-window.cc:3244
+#: src/terminal-window.cc:3252
 msgid ""
 "There are still processes running in some terminals in this window. Closing "
 "the window will kill all of them."
 msgstr "在这个窗口的一些终端中仍然有进程在运行。关闭该窗口将杀死所有这些进程。"
 
-#: src/terminal-window.cc:3248
+#: src/terminal-window.cc:3256
 msgid ""
 "There is still a process running in this terminal. Closing the terminal will "
 "kill it."
 msgstr "该终端中仍然有一个进程在运行。关闭终端将杀死该进程。"
 
-#: src/terminal-window.cc:3253
+#: src/terminal-window.cc:3261
 msgid "C_lose Window"
 msgstr "关闭窗口(_L)"
 
@@ -2334,61 +2409,6 @@ msgstr "关闭窗口(_L)"
 #, c-format
 msgid "Failed to parse arguments: %s\n"
 msgstr "无法处理参数：%s\n"
-
-#~ msgid "org.gnome.Terminal.Nautilus"
-#~ msgstr "org.gnome.Terminal.Nautilus"
-
-#~ msgid "org.gnome.Nautilus.desktop"
-#~ msgstr "org.gnome.Nautilus.desktop"
-
-#~ msgid "GPL-3.0+ or GFDL-1.3-only"
-#~ msgstr "GPL-3.0+ or GFDL-1.3-only"
-
-#~ msgid "GPL-3.0+"
-#~ msgstr "GPL-3.0+"
-
-#~ msgid "https://wiki.gnome.org/Apps/Terminal"
-#~ msgstr "https://wiki.gnome.org/Apps/Terminal"
-
-#~ msgid "https://wiki.gnome.org/Apps/Terminal/ReportingBugs"
-#~ msgstr "https://wiki.gnome.org/Apps/Terminal/ReportingBugs"
-
-#~ msgid "gnome-terminal"
-#~ msgstr "gnome-terminal"
-
-#~ msgid "org.gnome.Terminal.desktop"
-#~ msgstr "org.gnome.Terminal.desktop"
-
-#~ msgid "console"
-#~ msgstr "控制台"
-
-#~ msgid "keyboard"
-#~ msgstr "键盘"
-
-#~ msgid "pointing"
-#~ msgstr "指针设备"
-
-#~ msgid ""
-#~ "https://help.gnome.org/users/gnome-terminal/stable/figures/gnome-terminal."
-#~ "png"
-#~ msgstr ""
-#~ "https://help.gnome.org/users/gnome-terminal/stable/figures/gnome-terminal."
-#~ "png"
-
-#~ msgid "HiDpiIcon"
-#~ msgstr "HiDpiIcon"
-
-#~ msgid "HighContrast"
-#~ msgstr "HighContrast"
-
-#~ msgid "ModernToolkit"
-#~ msgstr "ModernToolkit"
-
-#~ msgid "SearchProvider"
-#~ msgstr "SearchProvider"
-
-#~ msgid "UserDocs"
-#~ msgstr "UserDocs"
 
 #~ msgid "Whether to allow bold text"
 #~ msgstr "是否允许粗体字"
