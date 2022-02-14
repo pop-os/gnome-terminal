@@ -1,3 +1,9 @@
+gnome-terminal (3.43.90-1) UNRELEASED; urgency=medium
+
+  * New upstream release
+
+ -- Jeremy Bicha <jeremy.bicha@canonical.com>  Mon, 14 Feb 2022 12:51:25 -0500
+
 gnome-terminal (3.42.2-2) unstable; urgency=medium
 
   * Cherry-pick patch to fix build with latest meson
