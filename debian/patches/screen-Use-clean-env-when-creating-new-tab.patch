@@ -11,6 +11,8 @@ Last-Update: 2021-04-13
  src/terminal-screen.cc | 11 ++++-------
  1 file changed, 4 insertions(+), 7 deletions(-)
 
+diff --git a/src/terminal-screen.cc b/src/terminal-screen.cc
+index 4e004c4..7b55165 100644
 --- a/src/terminal-screen.cc
 +++ b/src/terminal-screen.cc
 @@ -275,8 +275,7 @@ exec_data_new (void)
@@ -33,7 +35,7 @@ Last-Update: 2021-04-13
      clone->as_shell = TRUE;
      return clone;
    }
-@@ -964,7 +962,6 @@ terminal_screen_reexec_from_screen (Term
+@@ -937,7 +935,6 @@ terminal_screen_reexec_from_screen (TerminalScreen *screen,
  
    g_return_val_if_fail (TERMINAL_IS_SCREEN (parent_screen), FALSE);
  
@@ -41,7 +43,7 @@ Last-Update: 2021-04-13
    gs_free char* cwd = terminal_screen_get_current_dir (parent_screen);
  
    _terminal_debug_print (TERMINAL_DEBUG_PROCESSES,
-@@ -974,7 +971,7 @@ terminal_screen_reexec_from_screen (Term
+@@ -947,7 +944,7 @@ terminal_screen_reexec_from_screen (TerminalScreen *screen,
                           cwd);
  
    return terminal_screen_reexec_from_exec_data (screen,
@@ -50,7 +52,7 @@ Last-Update: 2021-04-13
                                                  nullptr /* envv */,
                                                  cwd,
                                                  cancellable,
-@@ -1780,7 +1777,7 @@ spawn_result_cb (VteTerminal *terminal,
+@@ -1753,7 +1750,7 @@ spawn_result_cb (VteTerminal *terminal,
    }
  
    /* Retain info for reexec, if possible */

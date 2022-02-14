@@ -9,7 +9,7 @@ Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=712628
  1 file changed, 66 insertions(+)
 
 diff --git a/src/terminal-screen.cc b/src/terminal-screen.cc
-index e2e7d2b..ef9da23 100644
+index 44c551f..0ef74f3 100644
 --- a/src/terminal-screen.cc
 +++ b/src/terminal-screen.cc
 @@ -354,6 +354,63 @@ terminal_screen_clear_exec_data (TerminalScreen *screen,
@@ -76,7 +76,7 @@ index e2e7d2b..ef9da23 100644
  static void
  free_tag_data (TagData *tagdata)
  {
-@@ -1834,12 +1891,21 @@ terminal_screen_button_press (GtkWidget      *widget,
+@@ -1807,12 +1864,21 @@ terminal_screen_button_press (GtkWidget      *widget,
  char *
  terminal_screen_get_current_dir (TerminalScreen *screen)
  {

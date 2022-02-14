@@ -3,10 +3,12 @@ Date: Fri, 24 Jun 2016 14:51:22 +0100
 Subject: [PATCH] Add style classes and CSS names to some of our widgets
 
 ---
- src/terminal-notebook.c | 6 ++++++
- src/terminal-screen.c   | 7 +++++++
+ src/terminal-notebook.cc | 6 ++++++
+ src/terminal-screen.cc   | 7 +++++++
  2 files changed, 13 insertions(+)
 
+diff --git a/src/terminal-notebook.cc b/src/terminal-notebook.cc
+index 6686d34..36d0c67 100644
 --- a/src/terminal-notebook.cc
 +++ b/src/terminal-notebook.cc
 @@ -32,6 +32,8 @@
@@ -34,6 +36,8 @@ Subject: [PATCH] Add style classes and CSS names to some of our widgets
  }
  
  static void
+diff --git a/src/terminal-screen.cc b/src/terminal-screen.cc
+index a987f26..bf41b6c 100644
 --- a/src/terminal-screen.cc
 +++ b/src/terminal-screen.cc
 @@ -135,6 +135,8 @@ enum
@@ -45,7 +49,7 @@ Subject: [PATCH] Add style classes and CSS names to some of our widgets
  static void terminal_screen_constructed (GObject             *object);
  static void terminal_screen_dispose     (GObject             *object);
  static void terminal_screen_finalize    (GObject             *object);
-@@ -557,9 +559,14 @@ terminal_screen_init (TerminalScreen *sc
+@@ -537,9 +539,14 @@ terminal_screen_init (TerminalScreen *screen)
    guint i;
    uuid_t u;
    char uuidstr[37];

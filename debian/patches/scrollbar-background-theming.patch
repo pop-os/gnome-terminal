@@ -5,14 +5,16 @@ Subject: draw proper background under the scrollbar
 Forwarded: yes, https://bugzilla.gnome.org/show_bug.cgi?id=754796
 Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gnome-terminal/+bug/1493964
 ---
- src/terminal-screen-container.cc | 28 +++++++++++++++++++--
- src/terminal-screen.cc           | 54 +++++++++++++++++++++++++++++++++++++++++
+ src/terminal-screen-container.cc | 28 +++++++++++++++++--
+ src/terminal-screen.cc           | 60 ++++++++++++++++++++++++++++++++++++++++
  src/terminal-screen.hh           |  2 ++
- 3 files changed, 82 insertions(+), 2 deletions(-)
+ 3 files changed, 88 insertions(+), 2 deletions(-)
 
+diff --git a/src/terminal-screen-container.cc b/src/terminal-screen-container.cc
+index 6d85190..cedb1d9 100644
 --- a/src/terminal-screen-container.cc
 +++ b/src/terminal-screen-container.cc
-@@ -121,9 +121,25 @@ terminal_screen_container_init (Terminal
+@@ -121,9 +121,25 @@ terminal_screen_container_init (TerminalScreenContainer *container)
    priv->vscrollbar_policy = GTK_POLICY_AUTOMATIC;
  }
  
@@ -38,7 +40,7 @@ Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gnome-terminal/+bug/149396
    TerminalScreenContainer *container = TERMINAL_SCREEN_CONTAINER (object);
    TerminalScreenContainerPrivate *priv = container->priv;
  
-@@ -151,9 +167,12 @@ terminal_screen_container_constructed (G
+@@ -151,9 +167,12 @@ terminal_screen_container_constructed (GObject *object)
  }
  #else
    priv->hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
@@ -53,7 +55,7 @@ Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gnome-terminal/+bug/149396
  
    gtk_box_pack_start (GTK_BOX (priv->hbox), GTK_WIDGET (priv->screen), TRUE, TRUE, 0);
    gtk_box_pack_start (GTK_BOX (priv->hbox), priv->vscrollbar, FALSE, FALSE, 0);
-@@ -163,6 +182,11 @@ terminal_screen_container_constructed (G
+@@ -163,6 +182,11 @@ terminal_screen_container_constructed (GObject *object)
  #endif
  
    _terminal_screen_update_scrollbar (priv->screen);
@@ -65,6 +67,8 @@ Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gnome-terminal/+bug/149396
  }
  
  static void
+diff --git a/src/terminal-screen.cc b/src/terminal-screen.cc
+index 85ae885..4e004c4 100644
 --- a/src/terminal-screen.cc
 +++ b/src/terminal-screen.cc
 @@ -108,6 +108,8 @@ struct _TerminalScreenPrivate
@@ -85,7 +89,7 @@ Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gnome-terminal/+bug/149396
  };
  
  enum
-@@ -643,6 +647,12 @@ terminal_screen_get_property (GObject *o
+@@ -616,6 +620,12 @@ terminal_screen_get_property (GObject *object,
        case PROP_TITLE:
          g_value_set_string (value, terminal_screen_get_title (screen));
          break;
@@ -98,7 +102,7 @@ Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gnome-terminal/+bug/149396
        default:
          G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
          break;
-@@ -663,6 +673,8 @@ terminal_screen_set_property (GObject *o
+@@ -636,6 +646,8 @@ terminal_screen_set_property (GObject *object,
          terminal_screen_set_profile (screen, (GSettings*)g_value_get_object (value));
          break;
        case PROP_TITLE:
@@ -107,7 +111,7 @@ Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gnome-terminal/+bug/149396
          /* not writable */
        default:
          G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-@@ -754,6 +766,26 @@ terminal_screen_class_init (TerminalScre
+@@ -727,6 +739,26 @@ terminal_screen_class_init (TerminalScreenClass *klass)
  				      G_PARAM_STATIC_NICK |
  				      G_PARAM_STATIC_BLURB)));
  
@@ -134,7 +138,7 @@ Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gnome-terminal/+bug/149396
    g_type_class_add_private (object_class, sizeof (TerminalScreenPrivate));
  
    gtk_widget_class_install_style_property (widget_class,
-@@ -1099,6 +1131,22 @@ terminal_screen_get_title (TerminalScree
+@@ -1072,6 +1104,22 @@ terminal_screen_get_title (TerminalScreen *screen)
    return vte_terminal_get_window_title (VTE_TERMINAL (screen));
  }
  
@@ -157,7 +161,7 @@ Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gnome-terminal/+bug/149396
  static void
  terminal_screen_profile_changed_cb (GSettings     *profile,
                                      const char    *prop_name,
-@@ -1351,6 +1399,18 @@ update_color_scheme (TerminalScreen *scr
+@@ -1324,6 +1372,18 @@ update_color_scheme (TerminalScreen *screen)
    vte_terminal_set_color_highlight (VTE_TERMINAL (screen), highlight_bgp);
    vte_terminal_set_color_highlight_foreground (VTE_TERMINAL (screen), highlight_fgp);
  
@@ -176,9 +180,11 @@ Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gnome-terminal/+bug/149396
    update_toplevel_transparency (screen);
  }
  
+diff --git a/src/terminal-screen.hh b/src/terminal-screen.hh
+index 70d0d8c..b434052 100644
 --- a/src/terminal-screen.hh
 +++ b/src/terminal-screen.hh
-@@ -115,6 +115,8 @@ GSettings* terminal_screen_get_profile (
+@@ -115,6 +115,8 @@ GSettings* terminal_screen_get_profile (TerminalScreen *screen);
  GSettings* terminal_screen_ref_profile (TerminalScreen *screen);
  
  const char* terminal_screen_get_title          (TerminalScreen *screen);

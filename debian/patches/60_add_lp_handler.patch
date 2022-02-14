@@ -13,18 +13,22 @@ Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gnome-terminal/+bug/123258
  src/terminal-window.cc | 13 ++++++++++++-
  6 files changed, 34 insertions(+), 1 deletion(-)
 
+diff --git a/src/terminal-regex.hh b/src/terminal-regex.hh
+index b74b956..35f11c5 100644
 --- a/src/terminal-regex.hh
 +++ b/src/terminal-regex.hh
-@@ -158,5 +158,6 @@
+@@ -154,5 +154,6 @@
  #define REGEX_URL_VOIP   DEFS "(?i:h323:|sips?:)" USERPASS URL_HOST PORT VOIP_PATH
  #define REGEX_EMAIL      DEFS "(?i:mailto:)?" USER "@" EMAIL_HOST
  #define REGEX_NEWS_MAN   "(?i:news:|man:|info:|apt:)[-[:alnum:]\\Q^_{|}~!\"#$%&'()*+,./;:=?`\\E]+"
 +#define REGEX_LP         "(?i:lp: #)[[:digit:]]+"
  
  #endif /* !TERMINAL_REGEX_H */
+diff --git a/src/terminal-screen.cc b/src/terminal-screen.cc
+index f8ede37..85ae885 100644
 --- a/src/terminal-screen.cc
 +++ b/src/terminal-screen.cc
-@@ -210,6 +210,7 @@ static const TerminalRegexPattern url_re
+@@ -210,6 +210,7 @@ static const TerminalRegexPattern url_regex_patterns[] = {
    { REGEX_URL_VOIP,  FLAVOR_VOIP_CALL },
    { REGEX_EMAIL,     FLAVOR_EMAIL },
    { REGEX_NEWS_MAN,  FLAVOR_AS_IS },
@@ -32,6 +36,8 @@ Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gnome-terminal/+bug/123258
  };
  
  static const TerminalRegexPattern extra_regex_patterns[] = {
+diff --git a/src/terminal-screen.hh b/src/terminal-screen.hh
+index df59b1a..70d0d8c 100644
 --- a/src/terminal-screen.hh
 +++ b/src/terminal-screen.hh
 @@ -32,6 +32,7 @@ typedef enum {
@@ -42,9 +48,11 @@ Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gnome-terminal/+bug/123258
  } TerminalURLFlavor;
  
  /* Forward decls */
+diff --git a/src/terminal-util.cc b/src/terminal-util.cc
+index f1be9b2..0e984dd 100644
 --- a/src/terminal-util.cc
 +++ b/src/terminal-util.cc
-@@ -321,6 +321,9 @@ terminal_util_open_url (GtkWidget *paren
+@@ -321,6 +321,9 @@ terminal_util_open_url (GtkWidget *parent,
      case FLAVOR_AS_IS:
        uri = g_strdup (orig_url);
        break;
@@ -54,7 +62,7 @@ Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gnome-terminal/+bug/123258
      default:
        uri = nullptr;
        g_assert_not_reached ();
-@@ -334,6 +337,20 @@ terminal_util_open_url (GtkWidget *paren
+@@ -334,6 +337,20 @@ terminal_util_open_url (GtkWidget *parent,
      }
  }
  
@@ -75,9 +83,11 @@ Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gnome-terminal/+bug/123258
  /**
   * terminal_util_transform_uris_to_quoted_fuse_paths:
   * @uris:
+diff --git a/src/terminal-util.hh b/src/terminal-util.hh
+index f4b7292..c24c514 100644
 --- a/src/terminal-util.hh
 +++ b/src/terminal-util.hh
-@@ -44,6 +44,8 @@ void terminal_util_open_url (GtkWidget *
+@@ -44,6 +44,8 @@ void terminal_util_open_url (GtkWidget *parent,
                               TerminalURLFlavor flavor,
                               guint32 user_time);
  
@@ -86,9 +96,11 @@ Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gnome-terminal/+bug/123258
  void terminal_util_transform_uris_to_quoted_fuse_paths (char **uris);
  
  char *terminal_util_concat_uris (char **uris,
+diff --git a/src/terminal-window.cc b/src/terminal-window.cc
+index 96b7ba2..10fb679 100644
 --- a/src/terminal-window.cc
 +++ b/src/terminal-window.cc
-@@ -1023,7 +1023,17 @@ action_copy_match_cb (GSimpleAction *act
+@@ -1033,7 +1033,17 @@ action_copy_match_cb (GSimpleAction *action,
    if (info->url == nullptr)
      return;
  
@@ -107,7 +119,7 @@ Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gnome-terminal/+bug/123258
  }
  
  static void
-@@ -1722,6 +1732,7 @@ screen_show_popup_menu_cb (TerminalScree
+@@ -1729,6 +1739,7 @@ screen_show_popup_menu_cb (TerminalScreen *screen,
        break;
      case FLAVOR_AS_IS:
      case FLAVOR_DEFAULT_TO_HTTP:
