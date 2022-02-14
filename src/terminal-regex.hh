@@ -139,7 +139,7 @@
 /* Same as above, but the last character (if exists and is not a parenthesis) must be from PATHTERM_CLASS. */
 #define PATH_DEF "(?(DEFINE)(?<PATH>(?x: (?: " PATHCHARS_CLASS "* (?: \\( (?&PATH_INNER) \\) | \\[ (?&PATH_INNER) \\] ) )* (?: " PATHCHARS_CLASS "* (?(<APOS_START>)" PATHTERM_NOAPOS_CLASS "|" PATHTERM_CLASS ") )? )))"
 
-#define URLPATH "(?x: /(?&PATH) )?"
+#define URLPATH "(?x: [/?#](?&PATH) )?"
 #define VOIP_PATH "(?x: [;?](?&PATH) )?"
 
 /* Now let's put these fragments together */
@@ -150,11 +150,7 @@
 /* TODO: also support file:/etc/passwd */
 #define REGEX_URL_FILE   DEFS "(?ix: file:/ (?: / (?: " HOSTNAME1 " )? / )? (?! / ) )(?&PATH)"
 /* Lookbehind so that we don't catch "abc.www.foo.bar", bug 739757. Lookahead for www/ftp for convenience (so that we can reuse HOSTNAME1). */
-/* The commented-out variant looks more like our other definitions, but fails with PCRE 10.34. See GNOME/gnome-terminal#221.
- * TODO: revert to this nicer pattern some time after 10.35's release.
- * #define REGEX_URL_HTTP   DEFS "(?<!(?:" HOSTNAMESEGMENTCHARS_CLASS "|[.]))(?=(?i:www|ftp))" HOSTNAME1 PORT URLPATH
- */
-#define REGEX_URL_HTTP   APOS_START_DEF "(?<!(?:" HOSTNAMESEGMENTCHARS_CLASS "|[.]))(?=(?i:www|ftp))" HOSTNAME1 PORT PATH_INNER_DEF PATH_DEF URLPATH
+#define REGEX_URL_HTTP   DEFS "(?<!(?:" HOSTNAMESEGMENTCHARS_CLASS "|[.]))(?=(?i:www|ftp))" HOSTNAME1 PORT URLPATH
 #define REGEX_URL_VOIP   DEFS "(?i:h323:|sips?:)" USERPASS URL_HOST PORT VOIP_PATH
 #define REGEX_EMAIL      DEFS "(?i:mailto:)?" USER "@" EMAIL_HOST
 #define REGEX_NEWS_MAN   "(?i:news:|man:|info:)[-[:alnum:]\\Q^_{|}~!\"#$%&'()*+,./;:=?`\\E]+"

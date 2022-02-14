@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-terminal gnome-41\n"
-"POT-Creation-Date: 2021-08-26 18:15+0000\n"
+"Project-Id-Version: gnome-terminal\n"
+"POT-Creation-Date: 2021-04-19 15:09+0000\n"
 "PO-Revision-Date: 2021-08-28 14:48+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"

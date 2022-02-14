@@ -18,7 +18,6 @@ project(
   ['c', 'cpp',],
   default_options: [
     'buildtype=release',
-    'c_std=gnu11',
     'warning_level=' + (meson.version().version_compare('>= 0.50.0') ? '0' : '1'),
     'b_ndebug=false',
   ],
@@ -28,7 +27,7 @@ project(
     'GFDL-1.3-only',                # the appstream data
   ],
   meson_version: '>= 0.49.0',
-  version: '3.42.2',
+  version: '3.43.90',
 )
 
 # Naming
@@ -39,7 +38,7 @@ gt_dns_name = 'org.gnome.Terminal'
 # Compiler requirements
 
 c_req_std = 'gnu11'
-cxx_req_std               = 'gnu++11'
+cxx_req_std               = 'gnu++14'
 gxx_req_version           = '4.8.1'
 clangxx_req_version       = '3.3'
 
@@ -182,10 +181,8 @@ compiler_flags_common = [
   '-Wall',
   '-Wcast-align',
   '-Wendif-labels',
-  '-Werror=implicit-function-declaration',
   '-Werror=init-self',
   '-Werror=missing-include-dirs',
-  '-Werror=missing-prototypes',
   '-Werror=pointer-arith',
   '-Wextra',
   '-Wfloat-equal',
@@ -197,6 +194,7 @@ compiler_flags_common = [
   '-Wmissing-include-dirs',
   '-Wmissing-noreturn',
   '-Wnested-externs',
+  '-Wno-maybe-uninitialized',
   '-Wno-missing-field-initializers',
   '-Wno-switch-enum',
   '-Wno-unused-parameter',
@@ -291,6 +289,7 @@ endforeach
 # ... and now make these flags the default
 
 add_project_arguments(global_cflags, language: 'c',)
+add_project_arguments(global_cxxflags, language: 'cpp')
 
 # Dependencies
 
