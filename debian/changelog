@@ -1,8 +1,10 @@
-gnome-terminal (3.43.90-1) UNRELEASED; urgency=medium
+gnome-terminal (3.43.90-1) unstable; urgency=medium
 
   * New upstream release
+  * Drop meson build patch: applied in new release
+  * Drop unused debian/gnome-terminal.docs
 
- -- Jeremy Bicha <jeremy.bicha@canonical.com>  Mon, 14 Feb 2022 12:51:25 -0500
+ -- Jeremy Bicha <jeremy.bicha@canonical.com>  Mon, 14 Feb 2022 12:55:16 -0500
 
 gnome-terminal (3.42.2-2) unstable; urgency=medium
 
