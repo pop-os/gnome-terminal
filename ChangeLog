@@ -1,3 +1,136 @@
+commit 9986dbbef8bb2efa94360000c53dd11dde2853bb
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Sun Mar 27 19:58:38 2022 +0200
+
+    build: Version 3.44.0
+
+ meson.build | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 338a042d638a494d792363ae61cbb0ab32a375c3
+Author: Nathan Follens <nfollens@gnome.org>
+Date:   Fri Mar 25 12:52:29 2022 +0000
+
+    Update Dutch translation
+
+ po/nl.po | 660 ++++++++++++++++++++++++++++++++-------------------------------
+ 1 file changed, 340 insertions(+), 320 deletions(-)
+
+commit ae8dfea3c9903b5f6a4d50204ecf2d4ebd5c225e
+Author: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>
+Date:   Thu Mar 24 20:52:17 2022 +0000
+
+    Update Latvian translation
+
+ po/lv.po | 651 ++++++++++++++++++++++++++++++++-------------------------------
+ 1 file changed, 336 insertions(+), 315 deletions(-)
+
+commit 29d46bf5364758e9e35858185e806f7790ea9152
+Author: Jordi Mas <jmas@softcatala.org>
+Date:   Thu Mar 17 09:57:02 2022 +0100
+
+    Update Catalan translation
+
+ po/ca.po | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 6efe21d6077bfa86a623b791b6a7ded11a7fec8a
+Author: Jordi Mas <jmas@softcatala.org>
+Date:   Sun Mar 20 15:04:57 2022 +0100
+
+    Update Catalan translation
+
+ help/ca/ca.po | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
+
+commit 75e4fb55bca41335c881df618f36193b9da4d3e6
+Author: Jordi Mas <jmas@softcatala.org>
+Date:   Sat Mar 5 20:28:10 2022 +0100
+
+    Update Catalan translation
+
+ help/ca/ca.po | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+commit cf924a762b6efb44da7d17f67808ed3e5959e5c6
+Author: Kjartan Maraas <kmaraas@gnome.org>
+Date:   Thu Mar 17 12:58:55 2022 +0000
+
+    Update Norwegian Bokmål translation
+
+ po/nb.po | 670 +++++++++++++++++++++++++++++++++------------------------------
+ 1 file changed, 350 insertions(+), 320 deletions(-)
+
+commit 4929136dbf05a4ee84adc1412497f8389ae205d0
+Author: Марко Костић <marko.m.kostic@gmail.com>
+Date:   Fri Mar 11 16:38:34 2022 +0000
+
+    Update Serbian translation
+
+ po/sr.po | 650 ++++++++++++++++++++++++++++++++-------------------------------
+ 1 file changed, 335 insertions(+), 315 deletions(-)
+
+commit edefc8cbea6ba78c4a0760fb298601e0b91b1b7a
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Mon Mar 7 20:27:16 2022 +0100
+
+    all: Insert text as paste
+    
+    Use new API vte_terminal_paste_text() to insert text.
+    
+    (cherry picked from commit f5f15e67492ac61ebe664c5ea12377eedb41f112)
+
+ meson.build            |  2 +-
+ src/terminal-screen.cc | 30 ++++++++++++++++++++++++++----
+ src/terminal-screen.hh |  6 ++++++
+ src/terminal-window.cc |  2 +-
+ 4 files changed, 34 insertions(+), 6 deletions(-)
+
+commit 368d3b9d4ac80924120fa63f99fdafaa58b1c4f9
+Author: Seong-ho Cho <shcho@gnome.org>
+Date:   Fri Mar 4 14:28:17 2022 +0000
+
+    Update Korean translation
+
+ help/ko/ko.po | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+commit 0f598357d771c7c4fb60416040ab383c317baa80
+Author: Emin Tufan Çetin <etcetin@gmail.com>
+Date:   Wed Feb 23 09:35:27 2022 +0000
+
+    Update Turkish translation
+
+ po/tr.po | 652 ++++++++++++++++++++++++++++++++-------------------------------
+ 1 file changed, 336 insertions(+), 316 deletions(-)
+
+commit 3b0ae1d74eb4e55b467bd51cff72cad95b2e04ca
+Author: Alexander Shopov <ash@kambanaria.org>
+Date:   Mon Feb 14 10:59:45 2022 +0000
+
+    Update Bulgarian translation
+
+ po/bg.po | 157 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 84 insertions(+), 73 deletions(-)
+
+commit 2ae7932159db0ec5678ea2073e4e0d281163e9d6
+Author: Asier Sarasua Garmendia <asiersarasua@ni.eus>
+Date:   Sun Feb 13 08:23:42 2022 +0000
+
+    Update Basque translation
+
+ po/eu.po | 100 +++++++++++++++++++++++++++++++--------------------------------
+ 1 file changed, 50 insertions(+), 50 deletions(-)
+
+commit 6f5b0f027e3fd95eea60d7618b13fe6fcf72f7a3
+Author: Christian Persch <chpe@src.gnome.org>
+Date:   Sat Feb 12 19:49:10 2022 +0100
+
+    build: Post release version bump
+
+ meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
 commit d533f7704815e079ba667799dba9f4104f2775df
 Author: Christian Persch <chpe@src.gnome.org>
 Date:   Thu Aug 26 20:01:30 2021 +0200
