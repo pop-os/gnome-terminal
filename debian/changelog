@@ -1,3 +1,9 @@
+gnome-terminal (3.44.0-1) UNRELEASED; urgency=medium
+
+  * New upstream release
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Mon, 28 Mar 2022 08:39:15 -0400
+
 gnome-terminal (3.43.90-1) unstable; urgency=medium
 
   * New upstream release
