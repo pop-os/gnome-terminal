@@ -1,4 +1,4 @@
-gnome-terminal (3.44.0-1ubuntu1) UNRELEASED; urgency=medium
+gnome-terminal (3.44.0-1ubuntu1) jammy; urgency=medium
 
   * Merge with debian, remaining changes:
     + gnome-terminal.wrap, debian/rules:
@@ -26,7 +26,7 @@ gnome-terminal (3.44.0-1ubuntu1) UNRELEASED; urgency=medium
       - Fix environment variables on opening new tab via the "Open in
         Terminal" right click menu in Nautilus. (LP: #1922839)
 
- -- Jeremy Bicha <jbicha@ubuntu.com>  Mon, 28 Mar 2022 08:44:19 -0400
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Mon, 28 Mar 2022 08:51:15 -0400
 
 gnome-terminal (3.44.0-1) unstable; urgency=medium
 
